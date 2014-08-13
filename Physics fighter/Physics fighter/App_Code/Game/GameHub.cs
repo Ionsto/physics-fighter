@@ -8,9 +8,9 @@ namespace Physics_fighter
 {
     public class GameHub : Hub
     {
-        public void Hello()
+        public void SetObjectFrame(int id,int frame, float posx, float posy, float posrotation, float size,string colour)
         {
-            Clients.All.hello();
+            Clients.All.SetObjectFrame(id,frame,posx,posy,posrotation,size,colour);
         }
     }
 }
