@@ -99,7 +99,7 @@
     <Content Include="App_Code\Game\Connection.cs" />
     <Compile Include="App_Code\Game\GameHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="App_Code\Startup.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Web.Debug.config">

@@ -9,17 +9,17 @@ namespace Physics_fighter.App_Code.Game
     {
         Entity[] EntityList;
         Connection[] ConnectionList;
-        public World(int EntityCount)
+        public World(int EntityCount,int ConnectionCount)
         {
             EntityList = new Entity[EntityCount];
-            for (int i = 0; i < EntityList.length; ++i)
+            for (int i = 0; i < EntityList.Length; ++i)
             {
-                EntityList[i] = None;
+                EntityList[i] = null;
             }
             ConnectionList = new Connection[ConnectionCount];
-            for (int i = 0; i < EntityList.length; ++i)
+            for (int i = 0; i < EntityList.Length; ++i)
             {
-                ConnectionList[i] = None;
+                ConnectionList[i] = null;
             }
         }
     }
