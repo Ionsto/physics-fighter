@@ -11,5 +11,9 @@ namespace Physics_fighter.App_Code.Game
         int EntityA = -1;
         int EntityB = -1;
         float ForceHeld = 10;
+        public void Update(World world)
+        {
+
+        }
     }
 }

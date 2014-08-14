@@ -8,6 +8,7 @@ namespace Physics_fighter.Hubs
 {
     public class GameHub : Hub
     {
+        int ClientCount = 0;
         //This updates the physic frames on all of the clients
         public void SetObjectFrame(int id,int frame, float posx, float posy,string colour)
         {
@@ -15,7 +16,9 @@ namespace Physics_fighter.Hubs
         }
         //this function is called by the clients and applys the forces to the user bodys allong with readying them
         public void ReadyState()
-        { 
+        {
+
+            ++ClientCount;
         }
     }
 }

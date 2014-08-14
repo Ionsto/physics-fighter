@@ -7,8 +7,8 @@ namespace Physics_fighter.App_Code.Game
 {
     public class World
     {
-        Entity[] EntityList;
-        Connection[] ConnectionList;
+        public Entity[] EntityList;
+        public Connection[] ConnectionList;
         public World(int EntityCount,int ConnectionCount)
         {
             EntityList = new Entity[EntityCount];
@@ -20,6 +20,16 @@ namespace Physics_fighter.App_Code.Game
             for (int i = 0; i < EntityList.Length; ++i)
             {
                 ConnectionList[i] = null;
+            }
+        }
+        public void Update()
+        {
+            for (int i = 0; i < EntityList.Length;++i)
+            {
+                if(EntityList[i] != null)
+                {
+                    EntityList[i].Update(this);
+                }
             }
         }
     }

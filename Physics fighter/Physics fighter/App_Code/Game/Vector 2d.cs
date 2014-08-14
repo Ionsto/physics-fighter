@@ -13,5 +13,21 @@ namespace Physics_fighter.App_Code.Game
             X = x;
             Y = y;
         }
+        public Vector_2d Add(Vector_2d v)
+        {
+            return new Vector_2d(X + v.X, Y + v.Y);
+        }
+        public Vector_2d Sub(Vector_2d v)
+        {
+            return new Vector_2d(X - v.X, Y - v.Y);
+        }
+        public Vector_2d Mult(float v)
+        {
+            return new Vector_2d(X * v, Y * v);
+        }
+        public float Dot(Vector_2d v)
+        {
+            return (X * v.X) + (Y * v.Y);
+        }
     }
 }
