@@ -10,9 +10,7 @@ namespace Physics_fighter.Hubs
     {
         List<String> PlayerList = new List<String>();
         public void AddPlayer(string Name)
-        {
-            Entity c;
-            Lobby.MainLobby.PlayerList.Add(Name);
+       {
             Clients.All.setPlayerList(PlayerList);
         }
         public void RemovePlayer(string Name)
