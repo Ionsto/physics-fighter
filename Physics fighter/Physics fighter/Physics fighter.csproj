@@ -85,6 +85,8 @@
     <Content Include="packages.config" />
     <Content Include="Website\Game\Game.html" />
     <Content Include="Website\Game\Game.js" />
+    <Content Include="Website\Lobby\Lobby.html" />
+    <Content Include="Website\Lobby\Lobby.js" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />

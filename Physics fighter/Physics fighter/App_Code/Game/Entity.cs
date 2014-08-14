@@ -52,7 +52,7 @@ namespace Physics_fighter.App_Code.Game
             {
                 Damadge -= 5 * Math.Abs(DistDot - RestingDiffrenceSqd) / ForceHeld;
             }
-            Vector_2d translate = new Vector_2d(Dist.X * 0.5 * Difference, Dist.Y * 0.5 * Difference);
+            Vector_2d translate = new Vector_2d((float)(Dist.X * 0.5 * Difference), (float)(Dist.Y * 0.5 * Difference));
             PosA = PosA.Add(translate);
             PosB = PosB.Sub(translate);
         }
