@@ -7,7 +7,10 @@
     <script src="../../signalr/hubs"></script>
 </head>
 <body>
-    <input type="text"/>
+    <p style="text-align:center;font-size:xx-large">The physics fighter</p>
+    <input type="text" placeholder="Name of player" id="Name"/><br/>
+    <input type="button" value="Ready" onclick="Ready(true);"/><input type="button" value="Un Ready" onclick="Ready(false);"/>
+    <div id="PlayerNameDisplay" width="500"></div>
     <script src="Lobby.js"></script>
 </body>
 </html>

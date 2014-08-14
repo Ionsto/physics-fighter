@@ -35,6 +35,5 @@
     }
     var Canvas = document.getElementById("Render");
     var ctx = Canvas.getContext("2d");
-    //ctx.fillRect(0, 0, 100, 100);
     RenderEntity(new Entity(0,0,100,100,"#FFFFFF"));
 });

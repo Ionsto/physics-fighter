@@ -99,6 +99,7 @@
     <Content Include="App_Code\Game\Entity.cs" />
     <Content Include="App_Code\Game\Vector 2d.cs" />
     <Content Include="App_Code\Game\Connection.cs" />
+    <Compile Include="Hubs\LobbyHub.cs" />
     <Compile Include="Hubs\GameHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

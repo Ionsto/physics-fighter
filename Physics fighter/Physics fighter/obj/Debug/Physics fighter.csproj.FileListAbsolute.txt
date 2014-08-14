@@ -38,3 +38,23 @@ C:\Users\Sam\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bi
 C:\Users\Sam\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\obj\Debug\Physics fighter.csprojResolveAssemblyReference.cache
 C:\Users\Sam\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\obj\Debug\Physics fighter.dll
 C:\Users\Sam\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\obj\Debug\Physics fighter.pdb
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Physics fighter.dll.config
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Physics fighter.dll
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Physics fighter.pdb
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.Owin.dll
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.Owin.Security.dll
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Newtonsoft.Json.dll
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Owin.dll
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.Owin.xml
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.Owin.Security.xml
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Newtonsoft.Json.xml
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\obj\Debug\Physics fighter.csprojResolveAssemblyReference.cache
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\obj\Debug\Physics fighter.dll
+C:\Users\mpfs\Contacts\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\obj\Debug\Physics fighter.pdb
