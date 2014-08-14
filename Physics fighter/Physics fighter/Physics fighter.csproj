@@ -95,11 +95,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Src\Game\World.cs" />
-    <Content Include="Src\Game\Entity.cs" />
-    <Content Include="Src\Game\Vector 2d.cs" />
-    <Content Include="Src\Game\Connection.cs" />
-    <Content Include="Src\Lobby\Lobby.cs" />
+    <Content Include="Src\World.cs" />
+    <Content Include="Src\Entity.cs" />
+    <Content Include="Src\Vector 2d.cs" />
+    <Content Include="Src\Connection.cs" />
+    <Content Include="Src\Lobby.cs" />
     <Compile Include="Hubs\LobbyHub.cs" />
     <Compile Include="Hubs\GameHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

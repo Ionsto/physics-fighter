@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 
-namespace Physics_fighter.Src.Hubs
+namespace Physics_fighter.Hubs
 {
     public class GameHub : Hub
     {
