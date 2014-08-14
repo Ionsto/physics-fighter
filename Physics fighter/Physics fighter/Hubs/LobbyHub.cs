@@ -4,19 +4,30 @@ using System.Linq;
 using System.Web;
 using Physics_fighter;
 using Microsoft.AspNet.SignalR;
+using Physics_fighter.Src;
 namespace Physics_fighter.Hubs
 {
     public class LobbyHub : Hub
     {
-        List<String> PlayerList = new List<String>();
         public void AddPlayer(string Name)
-       {
-            Clients.All.setPlayerList(PlayerList);
+        {
+            Game.Lobby.AddPlayer(Name);
+            Clients.All.setPlayerList(Game.Lobby.PlayerList);
         }
         public void RemovePlayer(string Name)
         {
-            //PlayerList.Remove(Name);
-            //Clients.All.setPlayerList(PlayerList);
+            Game.Lobby.RemovePlayer(Name);
+            Clients.All.setPlayerList(Game.Lobby.PlayerList);
+        }
+        public void ReadyPlayer(string Name)
+        {
+            Game.Lobby.AddPlayer(Name);
+            Clients.All.setPlayerList(Game.Lobby.PlayerList);
+        }
+        public void UnreadyPlayer(string Name)
+        {
+            Game.Lobby.RemovePlayer(Name);
+            Clients.All.setPlayerList(Game.Lobby.PlayerList);
         }
     }
 }
