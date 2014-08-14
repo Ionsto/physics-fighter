@@ -95,10 +95,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Code\Game\World.cs" />
-    <Content Include="App_Code\Game\Entity.cs" />
-    <Content Include="App_Code\Game\Vector 2d.cs" />
-    <Content Include="App_Code\Game\Connection.cs" />
+    <Content Include="Src\Game\World.cs" />
+    <Content Include="Src\Game\Entity.cs" />
+    <Content Include="Src\Game\Vector 2d.cs" />
+    <Content Include="Src\Game\Connection.cs" />
+    <Content Include="Src\Lobby\Lobby.cs" />
     <Compile Include="Hubs\LobbyHub.cs" />
     <Compile Include="Hubs\GameHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,9 +113,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Code\Lobby\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

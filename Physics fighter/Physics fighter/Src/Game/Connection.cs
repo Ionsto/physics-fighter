@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Physics_fighter.App_Code.Game
+namespace Physics_fighter.Src.Game
 {
     public class Connection
     {
@@ -13,7 +13,7 @@ namespace Physics_fighter.App_Code.Game
         float ForceHeld = 10;
         public void Update(World world)
         {
-
+            
         }
     }
 }

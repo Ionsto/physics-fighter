@@ -4,11 +4,10 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 
-namespace Physics_fighter.Hubs
+namespace Physics_fighter.Src.Hubs
 {
     public class GameHub : Hub
     {
-        int ClientCount = 0;
         //This updates the physic frames on all of the clients
         public void SetObjectFrame(int id,int frame, float posx, float posy,string colour)
         {
@@ -18,7 +17,6 @@ namespace Physics_fighter.Hubs
         public void ReadyState()
         {
 
-            ++ClientCount;
         }
     }
 }

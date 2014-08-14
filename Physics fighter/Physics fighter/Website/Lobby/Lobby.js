@@ -1,14 +1,13 @@
 ﻿$(document).ready(function () {
     var lobby = $.connection.lobbyHub;
     lobby.client.setPlayerList = function (names) {
-        document.getElementById("PlayerNameDisplay").innerText = "";
+        document.getElementById("PlayerNameDisplay").innerHTML = "";
         for (var i = 0; i < names.length; ++i) {
-            document.getElementById("PlayerNameDisplay").innerText += names[i];
+            document.getElementById("PlayerNameDisplay").innerHTML += names[i];
         }
     };
     var PlayerName = "MissingNo";
     document.getElementById("Ready").onclick = function () {
-        alert("fsa");
         if (document.getElementById("Ready").value === "Ready")
         {
             PlayerName = document.getElementById("Name").value;
@@ -21,4 +20,5 @@
             document.getElementById("Ready").value = "Ready";
         }
     };
+    $.connection.hub.start();
 });
