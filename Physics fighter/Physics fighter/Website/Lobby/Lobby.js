@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    var Lobby = $.connection.lobbyHub;
+    var lobby = $.connection.lobbyHub;
     lobby.client.setPlayerList = function (names) {
         document.getElementById("PlayerNameDisplay").innerText = "";
         for (var i = 0; i < names.length; ++i)
