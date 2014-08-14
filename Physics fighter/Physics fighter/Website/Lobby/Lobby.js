@@ -2,21 +2,23 @@
     var lobby = $.connection.lobbyHub;
     lobby.client.setPlayerList = function (names) {
         document.getElementById("PlayerNameDisplay").innerText = "";
-        for (var i = 0; i < names.length; ++i)
-        {
+        for (var i = 0; i < names.length; ++i) {
             document.getElementById("PlayerNameDisplay").innerText += names[i];
         }
-    }
+    };
     var PlayerName = "MissingNo";
-    function Ready(ready) {
-        if(ready)
+    document.getElementById("Ready").onclick = function () {
+        alert("fsa");
+        if (document.getElementById("Ready").value === "Ready")
         {
-            PlayerName = document.getElementById("Name");
+            PlayerName = document.getElementById("Name").value;
             lobby.server.addPlayer(PlayerName);
+            document.getElementById("Ready").value = "Unready";
         }
-        if(!ready)
+        else
         {
             lobby.server.removePlayer(PlayerName);
+            document.getElementById("Ready").value = "Ready";
         }
-    }
+    };
 });
