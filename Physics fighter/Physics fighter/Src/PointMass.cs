@@ -12,8 +12,14 @@ namespace Physics_fighter.Src
         public Vector_2d OldPos = new Vector_2d();
         public int Id = -1;
         public int Player = -1;
+        public PointMass(Vector_2d loc)
+        {
+            Pos = loc;
+            OldPos = loc;
+        }
         public void Update(World world)
         {
+            OldPos.Y += 0.01F;
             Intergrate();
         }
         public void Intergrate()

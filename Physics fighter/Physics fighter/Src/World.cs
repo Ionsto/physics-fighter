@@ -24,7 +24,9 @@ namespace Physics_fighter.Src
             {
                 ConnectionList[i] = null;
             }
-
+            AddPointMass(new PointMass(new Vector_2d(50,100)));
+            AddPointMass(new PointMass(new Vector_2d(100,100)));
+            AddConnection(new Connection(this, 0, 1));
         }
         public int AddPointMass(PointMass point)
         {

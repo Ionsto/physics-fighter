@@ -33,13 +33,15 @@ namespace Physics_fighter.Hubs
                     {
                         if (Game.World.ConnectionList[j] != null)
                         {
-                            Clients.All.setObjectFrame(j,Game.World.Frame,Game.World.PointMassList[Game.World.ConnectionList[j].PointA].Pos.X,Game.World.PointMassList[Game.World.ConnectionList[j].PointA].Pos.Y,Game.World.PointMassList[Game.World.ConnectionList[j].PointB].Pos.X,Game.World.PointMassList[Game.World.ConnectionList[j].PointB].Pos.Y,"#FFFFFF");
+                            Vector_2d PosA = Game.World.PointMassList[Game.World.ConnectionList[j].PointA].Pos;
+                            Vector_2d PosB = Game.World.PointMassList[Game.World.ConnectionList[j].PointB].Pos;
+                            Clients.All.setObjectFrame(j, Game.World.Frame, PosA.X,PosA.Y,PosB.X,PosB.Y, "#FFFFFF");
                         }
                     }
                 }
                 Game.World.ReadyList.Clear();
+                Clients.All.renderFrameSet(Game.World.Frame - 30);
             }
-            Clients.All.renderFrameSet(Game.World.Frame - 30);
             Clients.All.setPlayerList(Game.World.ReadyList);
         }
     }

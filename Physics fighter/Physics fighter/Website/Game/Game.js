@@ -21,15 +21,13 @@ $(document).ready(function () {
     }
     function RenderEntity(connection)
     {
+        alert("Render");
         ctx.beginPath();
         ctx.moveTo(entity.XA, entity.YA);
         ctx.lineTo(entity.XB, entity.YB);
         ctx.stroke();
     }
     var game = $.connection.gameHub;
-    game.client.setObjectFrame = function SetObjectFrame(id, frame, posxa, posya, posxb, posyb, colour) {
-        Frames[frame][id] = Connection(posx, posy, posxb, posyb, colour);
-    };
     game.client.setObjectFrame = function SetObjectFrame(id, frame, posxa, posya, posxb, posyb, colour) {
         Frames[frame][id] = Connection(posx, posy, posxb, posyb, colour);
     };
@@ -46,12 +44,24 @@ $(document).ready(function () {
     };
     document.getElementById("Ready").onclick = function ()
     {
-        game.server.readyState(PlayerName, new Array(), new Array());
-        document.getElementById("Ready").value = "Readyed";
+        if (document.getElementById("Ready").value === "Ready") {
+            game.server.readyState(PlayerName, new Array(), new Array());
+            document.getElementById("Ready").value = "Readyed";
+        }
     };
     game.client.renderFrameSet = function RenderFrameSet(framestart)
     {
+        alert("Render Set");
         ctx.clearRect(0, 0, 500, 500);
+        for (var f = framestart; f < framestart + 30;++f)
+        {
+            for (var i = 0; i < ObjectCount;++i)
+            {
+                if (Frames[f][i] != null) {
+                    RenderEntity(Frames[f][i]);
+                }
+            }
+        }
     }
     var CurrentFrame = 0;
     var FrameCount = 300;
