@@ -10,6 +10,7 @@ namespace Physics_fighter.Src
         List<int> Connected = new List<int>();//List of all the ids of connections
         public Vector_2d Pos = new Vector_2d();
         public Vector_2d OldPos = new Vector_2d();
+        public int Id = -1;
         public int Player = -1;
         public void Update(World world)
         {

@@ -7,32 +7,34 @@ namespace Physics_fighter.Src
 {
     public class Connection
     {
-        public PointMass PointA;
-        public PointMass PointB;
-        int Id = -1;
+        public int PointA;
+        public int PointB;
+        public int Id = -1;
         //precalculated
         float RestingDiffrenceSqd;
         float RestingDiffrence;
         float ForceHeld = 10;
         float Force = 0.1F;
         float Damadge = 100;
-        public Connection()
+        public Connection(World world,int a,int b)
         {
-            Vector_2d Dist = PointA.Pos.Sub(PointB.Pos);
+            PointA = a;
+            PointB = b;
+            Vector_2d Dist = world.PointMassList[PointA].Pos.Sub(world.PointMassList[PointB].Pos);
             RestingDiffrence = (float) Math.Sqrt((double)Dist.Dot(Dist));
             RestingDiffrenceSqd = RestingDiffrence * RestingDiffrence;
         }
         public void Update(World world)
         {
-            ResolveConstraint();
+            ResolveConstraint(world);
             if(Damadge <= 0)
             {
-                world.EntityList[Id] = null;
+                world.ConnectionList[Id] = null;
             }
         }
-        public void ResolveConstraint()
+        public void ResolveConstraint(World world)
         {
-            Vector_2d Dist = PointA.Pos.Sub(PointB.Pos);
+            Vector_2d Dist = world.PointMassList[PointA].Pos.Sub(world.PointMassList[PointB].Pos);
             float DistDot = Dist.Dot(Dist);
             float Distance = (float)Math.Sqrt(DistDot);
             float Difference = (RestingDiffrence - Distance) /  Distance;
@@ -43,8 +45,8 @@ namespace Physics_fighter.Src
             Vector_2d translate = new Vector_2d((float)(Dist.X * Difference), (float)(Dist.Y * Difference));
             translate.Mult(Force);
             translate.Mult(0.5F);
-            PointA.Pos = PointA.OldPos.Sub(translate);
-            PointB.Pos = PointB.OldPos.Add(translate);
+            world.PointMassList[PointA].Pos = world.PointMassList[PointA].OldPos.Sub(translate);
+            world.PointMassList[PointB].Pos = world.PointMassList[PointB].OldPos.Add(translate);
         }
     }
 }

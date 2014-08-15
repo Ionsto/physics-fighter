@@ -23,6 +23,24 @@ namespace Physics_fighter.Hubs
             {
                 //Game.World.ConnectionList[Ids[i]].ApplyForce(Forces[i]);
             }
+            Clients.All.setPlayerList(Game.World.ReadyList);
+            if (Game.World.ReadyList.Count == Game.World.PlayerList.Count)
+            {
+                for(int i = 0;i < 30;++i)
+                {
+                    Game.World.Update();
+                    for (int j = 0; j < Game.World.ConnectionList.Length; ++j)
+                    {
+                        if (Game.World.ConnectionList[j] != null)
+                        {
+                            Clients.All.setObjectFrame(j,Game.World.Frame,Game.World.PointMassList[Game.World.ConnectionList[j].PointA].Pos.X,Game.World.PointMassList[Game.World.ConnectionList[j].PointA].Pos.Y,Game.World.PointMassList[Game.World.ConnectionList[j].PointB].Pos.X,Game.World.PointMassList[Game.World.ConnectionList[j].PointB].Pos.Y,"#FFFFFF");
+                        }
+                    }
+                }
+                Game.World.ReadyList.Clear();
+            }
+            Clients.All.renderFrameSet(Game.World.Frame - 30);
+            Clients.All.setPlayerList(Game.World.ReadyList);
         }
     }
 }

@@ -7,32 +7,71 @@ namespace Physics_fighter.Src
 {
     public class World
     {
+        public int Frame = 0;
         public List<String> PlayerList = new List<String>();
         public List<String> ReadyList = new List<String>();
-        public Connection[] EntityList;
+        public PointMass[] PointMassList;
         public Connection[] ConnectionList;
-        public World(int EntityCount,int ConnectionCount)
+        public World(int PointMassCount, int ConnectionCount)
         {
-            EntityList = new Connection[EntityCount];
-            for (int i = 0; i < EntityList.Length; ++i)
+            PointMassList = new PointMass[PointMassCount];
+            for (int i = 0; i < PointMassList.Length; ++i)
             {
-                EntityList[i] = null;
+                PointMassList[i] = null;
             }
             ConnectionList = new Connection[ConnectionCount];
-            for (int i = 0; i < EntityList.Length; ++i)
+            for (int i = 0; i < ConnectionList.Length; ++i)
             {
                 ConnectionList[i] = null;
             }
+
+        }
+        public int AddPointMass(PointMass point)
+        {
+            for (int i = 0; i < PointMassList.Length; ++i)
+            {
+                if (PointMassList[i] == null)
+                {
+                    point.Id = i;
+                    PointMassList[i] = point;
+                    return i;
+                }
+            }
+            return -1;
+        }
+        public int AddConnection(Connection connection)
+        {
+            for (int i = 0; i < ConnectionList.Length; ++i)
+            {
+                if (ConnectionList[i] == null)
+                {
+                    connection.Id = i;
+                    ConnectionList[i] = connection;
+                    return i;
+                }
+            }
+            return -1;
         }
         public void Update()
         {
-            for (int i = 0; i < EntityList.Length;++i)
+            for (int i = 0; i < PointMassList.Length; ++i)
             {
-                if(EntityList[i] != null)
+                if (PointMassList[i] != null)
                 {
-                    EntityList[i].Update(this);
+                    PointMassList[i].Update(this);
                 }
             }
+            for (int j = 0; j < 4; ++j)
+            {
+                for (int i = 0; i < ConnectionList.Length; ++i)
+                {
+                    if (ConnectionList[i] != null)
+                    {
+                        ConnectionList[i].Update(this);
+                    }
+                }
+            }
+            ++Frame;
         }
     }
 }

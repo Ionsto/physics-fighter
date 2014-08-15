@@ -2,41 +2,51 @@
     var lobby = $.connection.lobbyHub;
     lobby.client.startGame = function ()
     {
-        window.location = window.location + "/../../Game/Game.html";
+        window.location = window.location + "/../../Game/Game.html?name="+PlayerName;
     };
-    lobby.client.setPlayerList = function (names,ready) {
+    lobby.client.setPlayerList = function (names, ready)
+    {
         document.getElementById("PlayerNameDisplay").innerHTML = "";
-        for (var i = 0; i < names.length; ++i) {
-            if (ready.indexOf(names[i]) === -1) {
+        for (var i = 0; i < names.length; ++i)
+        {
+            if (ready.indexOf(names[i]) === -1)
+            {
                 document.getElementById("PlayerNameDisplay").innerHTML += names[i] + "<br/>";
             }
-            else {
+            else
+            {
                 document.getElementById("PlayerNameDisplay").innerHTML += names[i] + " - Ready<br/>";
             }
         }
     };
     var PlayerName = "MissingNo";
-    document.getElementById("Join").onclick = function () {
-        if (document.getElementById("Join").value === "Join") {
+    document.getElementById("Join").onclick = function ()
+    {
+        if (document.getElementById("Join").value === "Join")
+        {
             PlayerName = document.getElementById("Name").value;
             lobby.server.addPlayer(PlayerName);
             document.getElementById("Join").value = "Leave";
         }
-        else {
+        else
+        {
             lobby.server.removePlayer(PlayerName);
             lobby.server.unreadyPlayer(PlayerName);
             document.getElementById("Ready").value = "Ready";
             document.getElementById("Join").value = "Join";
         }
     };
-    document.getElementById("Ready").onclick = function () {
+    document.getElementById("Ready").onclick = function ()
+    {
         if (document.getElementById("Join").value === "Leave") {
-            if (document.getElementById("Ready").value === "Ready") {
+            if (document.getElementById("Ready").value === "Ready")
+            {
                 PlayerName = document.getElementById("Name").value;
                 lobby.server.readyPlayer(PlayerName);
                 document.getElementById("Ready").value = "Unready";
             }
-            else {
+            else
+            {
                 lobby.server.unreadyPlayer(PlayerName);
                 document.getElementById("Ready").value = "Ready";
             }
