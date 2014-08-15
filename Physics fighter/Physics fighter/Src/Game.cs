@@ -7,7 +7,14 @@ namespace Physics_fighter.Src
 {
     public class Game
     {
-        public static Lobby Lobby = new Lobby();
-        public static World World = new World(6,5);
+        public static Lobby Lobby = null;
+        public static World World = null;
+        public static void MakeSafe()
+        {
+            if (Lobby == null)
+            {
+                Lobby = new Lobby();
+            }
+        }
     }
 }

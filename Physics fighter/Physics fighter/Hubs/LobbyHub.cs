@@ -11,22 +11,26 @@ namespace Physics_fighter.Hubs
     {
         public void AddPlayer(string Name)
         {
+            Game.MakeSafe();
             Game.Lobby.AddPlayer(Name);
             Clients.All.setPlayerList(Game.Lobby.PlayerList);
         }
         public void RemovePlayer(string Name)
         {
+            Game.MakeSafe();
             Game.Lobby.RemovePlayer(Name);
-            Clients.All.setPlayerList(Game.Lobby.PlayerList);
+            Clients.All.setPlayerList(Game.Lobby.PlayerList,Game.Lobby.PlayerReady);
         }
         public void ReadyPlayer(string Name)
         {
+            Game.MakeSafe();
             Game.Lobby.AddPlayer(Name);
             Clients.All.setPlayerList(Game.Lobby.PlayerList);
         }
         public void UnreadyPlayer(string Name)
         {
-            Game.Lobby.RemovePlayer(Name);
+            Game.MakeSafe();
+            Game.Lobby.UnReadyPlayer(Name);
             Clients.All.setPlayerList(Game.Lobby.PlayerList);
         }
     }
