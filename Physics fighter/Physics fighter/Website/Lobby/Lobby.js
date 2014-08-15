@@ -1,10 +1,17 @@
 ﻿$(document).ready(function () {
     var lobby = $.connection.lobbyHub;
+    lobby.client.startGame = function ()
+    {
+        window.location = window.location + "/../../Game/Game.html";
+    };
     lobby.client.setPlayerList = function (names,ready) {
         document.getElementById("PlayerNameDisplay").innerHTML = "";
         for (var i = 0; i < names.length; ++i) {
-            if (ready.indexof(names[i]) === -1) {
-                document.getElementById("PlayerNameDisplay").innerHTML += "<p >" + names[i] + "<\p><br/>";
+            if (ready.indexOf(names[i]) === -1) {
+                document.getElementById("PlayerNameDisplay").innerHTML += names[i] + "<br/>";
+            }
+            else {
+                document.getElementById("PlayerNameDisplay").innerHTML += names[i] + " - Ready<br/>";
             }
         }
     };
@@ -17,6 +24,8 @@
         }
         else {
             lobby.server.removePlayer(PlayerName);
+            lobby.server.unreadyPlayer(PlayerName);
+            document.getElementById("Ready").value = "Ready";
             document.getElementById("Join").value = "Join";
         }
     };
@@ -33,5 +42,8 @@
             }
         }
     };
-    $.connection.hub.start();
+    $.connection.hub.start().done(function ()
+    {
+        lobby.server.refreshClientPlayerList();
+    });
 });
