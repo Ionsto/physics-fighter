@@ -12,11 +12,11 @@ namespace Physics_fighter.Src
 
         public void AddPlayer(string Name)
         {
-            Game.Lobby.PlayerList.Add(Name);
+            PlayerList.Add(Name);
         }
         public void RemovePlayer(string Name)
         {
-            Game.Lobby.PlayerList.Remove(Name);
+            PlayerList.Remove(Name);
         }
     }
 }
