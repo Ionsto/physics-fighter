@@ -9,11 +9,11 @@ namespace Physics_fighter.Src
     {
         public List<String> PlayerList = new List<String>();
         public List<String> ReadyList = new List<String>();
-        public Entity[] EntityList;
+        public Connection[] EntityList;
         public Connection[] ConnectionList;
         public World(int EntityCount,int ConnectionCount)
         {
-            EntityList = new Entity[EntityCount];
+            EntityList = new Connection[EntityCount];
             for (int i = 0; i < EntityList.Length; ++i)
             {
                 EntityList[i] = null;

@@ -36,6 +36,8 @@ namespace Physics_fighter.Hubs
             {
                 //The game must start
                 Clients.All.startGame();
+                Game.PlayerCount = Game.Lobby.PlayerList.Count;
+                Game.MakeWorldSafe();
             }
         }
         public void UnreadyPlayer(string Name)

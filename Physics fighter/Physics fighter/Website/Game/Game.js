@@ -17,6 +17,9 @@
     game.client.setEntityFrame = function SetObjectFrame(id, frame, posxa, posya, posxb, posyb, colour) {
         Frames[frame][id] = Entity(posx, posy, posxb,posyb, colour);
     };
+    document.getElementById("Join").onclick = function () {
+
+    };
     function RenderFrameSet()
     {
         ctx.clearRect(0, 0, 500, 500);
@@ -35,5 +38,4 @@
     }
     var Canvas = document.getElementById("Render");
     var ctx = Canvas.getContext("2d");
-    RenderEntity(new Entity(0,0,100,100,"#FFFFFF"));
 });
