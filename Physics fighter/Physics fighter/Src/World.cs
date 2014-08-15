@@ -7,6 +7,8 @@ namespace Physics_fighter.Src
 {
     public class World
     {
+        public List<String> PlayerList = new List<String>();
+        public List<String> ReadyList = new List<String>();
         public Entity[] EntityList;
         public Connection[] ConnectionList;
         public World(int EntityCount,int ConnectionCount)
