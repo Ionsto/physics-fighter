@@ -11,7 +11,17 @@
     })(window.location.search.substr(1).split('&'))
 })(jQuery);
 $(document).ready(function () {
+    var CurrentFrame;
+    var FrameCount;
+    var ObjectCount;
+    var Frames;
+    var Canvas;
+    var ctx;
     var PlayerName = $.QueryString["name"];
+    if (PlayerName == "Spec")
+    {
+        document.getElementById("Ready").disabled = true;
+    }
     function Connection(xa, ya, xb, yb, colour) {
         this.XA = xa;
         this.YA = ya;
@@ -48,35 +58,43 @@ $(document).ready(function () {
             document.getElementById("Ready").value = "Readyed";
         }
     };
-    game.client.renderFrameSet = function RenderFrameSet(framestart)
-    {
+    var CurrentFrameOn = 0;
+    function RenderFrames(FrameStart, frames) {
         ctx.clearRect(0, 0, 500, 500);
-        for (var f = framestart; f < framestart + 30;++f)
-        {
-            for (var i = 0; i < ObjectCount;++i)
-            {
-                if (Frames[f][i] != null) {
-                    RenderEntity(Frames[f][i]);
-                }
+        for (var i = 0; i < ObjectCount; ++i) {
+            if (Frames[FrameStart + CurrentFrameOn][i] != null) {
+                RenderEntity(Frames[FrameStart + CurrentFrameOn][i]);
             }
         }
-    }
-    var CurrentFrame = 0;
-    var FrameCount = 300;
-    var ObjectCount = 12;
-    var Frames = new Array(FrameCount);
-    for (var i = 0; i < FrameCount; ++i)
-    {
-        Frames[i] = new Array(ObjectCount);
-        for (var j = 0; j < ObjectCount;++j)
-        {
-            Frames[i][j] = null;
+        if (++CurrentFrameOn < frames) {
+            document.getElementById("Ready").disabled = true;
+            setTimeout(function () { RenderFrames(FrameStart, frames); }, 50);
         }
+        else {
+            document.getElementById("Ready").disabled = false;
+            CurrentFrameOn = 0;
+        }
+    };
+    game.client.renderFrameSet = function RenderFrameSet(framestart,frames)
+    {
+        RenderFrames(framestart, frames);
     }
-    var Canvas = document.getElementById("Render");
-    var ctx = Canvas.getContext("2d");
+    game.client.initSettings = function InitSettings(settings) {
+        CurrentFrame = 0;
+        FrameCount = settings[0];
+        ObjectCount = settings[1];
+        Frames = new Array(FrameCount);
+        for (var i = 0; i < FrameCount; ++i) {
+            Frames[i] = new Array(ObjectCount);
+            for (var j = 0; j < ObjectCount; ++j) {
+                Frames[i][j] = null;
+            }
+        }
+        Canvas = document.getElementById("Render");
+        ctx = Canvas.getContext("2d");
+    };
     $.connection.hub.start().done(function ()
     {
-
+        game.server.requestSettings();
     });
 });

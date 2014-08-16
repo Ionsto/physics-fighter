@@ -19,14 +19,42 @@ namespace Physics_fighter.Src
         }
         public void Update(World world)
         {
-            OldPos.Y += 0.01F;
             Intergrate();
+            CheckBounds();
+            Pos.Y += 1;
         }
         public void Intergrate()
         {
             Vector_2d newOld = Pos;
-            Pos = Pos.Add(Pos.Sub(OldPos).Mult(0.999F));
+            Pos = Pos.Add(Pos.Sub(OldPos));
             OldPos = newOld;
+        }
+        public void CheckBounds()
+        {
+            if (Pos.Y > 500)
+            {
+                Vector_2d newOld = Pos;
+                Pos = OldPos;
+                OldPos = newOld;
+            }
+            if (Pos.Y < 0)
+            {
+                Vector_2d newOld = Pos;
+                Pos = OldPos;
+                OldPos = newOld;
+            }
+            if (Pos.X > 500)
+            {
+                Vector_2d newOld = Pos;
+                Pos = OldPos;
+                OldPos = newOld;
+            }
+            if (Pos.Y < 0)
+            {
+                Vector_2d newOld = Pos;
+                Pos = OldPos;
+                OldPos = newOld;
+            }
         }
     }
 }
