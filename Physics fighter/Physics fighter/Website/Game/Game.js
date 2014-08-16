@@ -31,6 +31,7 @@ $(document).ready(function () {
     }
     function RenderEntity(connection)
     {
+        ctx.fillStyle = connection.Colour;
         ctx.beginPath();
         ctx.moveTo(connection.XA, connection.YA);
         ctx.lineTo(connection.XB, connection.YB);
@@ -69,16 +70,16 @@ $(document).ready(function () {
         if (++CurrentFrameOn < frames) {
             document.getElementById("Ready").disabled = true;
             setTimeout(function () { RenderFrames(FrameStart, frames); }, 50);
+            document.getElementById("Frame").innerHTML = "Frame:" + (FrameStart + CurrentFrameOn);
         }
         else {
             document.getElementById("Ready").disabled = false;
             CurrentFrameOn = 0;
         }
     };
-    game.client.renderFrameSet = function RenderFrameSet(framestart,frames)
-    {
+    game.client.renderFrameSet = function RenderFrameSet(framestart, frames) {
         RenderFrames(framestart, frames);
-    }
+    };
     game.client.initSettings = function InitSettings(settings) {
         CurrentFrame = 0;
         FrameCount = settings[0];

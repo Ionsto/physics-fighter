@@ -24,20 +24,12 @@ namespace Physics_fighter.Hubs
                 //Game.World.ConnectionList[Ids[i]].ApplyForce(Forces[i]);
             }
             Clients.All.setPlayerList(Game.World.ReadyList);
-            if (Game.World.ReadyList.Count == Game.World.PlayerList.Count)
+            if (Game.World.ReadyList.Count == Game.World.PlayerNameList.Count)
             {
                 for(int i = 0;i < 30;++i)
                 {
                     Game.World.Update();
-                    for (int j = 0; j < Game.World.ConnectionList.Length; ++j)
-                    {
-                        if (Game.World.ConnectionList[j] != null)
-                        {
-                            Vector_2d PosA = Game.World.PointMassList[Game.World.ConnectionList[j].PointA].Pos;
-                            Vector_2d PosB = Game.World.PointMassList[Game.World.ConnectionList[j].PointB].Pos;
-                            Clients.All.setObjectFrame(j, Game.World.Frame, PosA.X,PosA.Y,PosB.X,PosB.Y, "#FFFFFF");
-                        }
-                    }
+                    SendRenderData(Clients.All);
                 }
                 Game.World.ReadyList.Clear();
                 Clients.All.renderFrameSet(Game.World.Frame - 30,30);
@@ -52,16 +44,26 @@ namespace Physics_fighter.Hubs
             Settings[1] = Game.World.ConnectionList.Length;
             Clients.Caller.initSettings(Settings);
             //Preliminary
+            SendRenderData(Clients.Caller);
+            Clients.Caller.renderFrameSet(0,1);
+        }
+        private void SendRenderData(dynamic to)
+        {
             for (int j = 0; j < Game.World.ConnectionList.Length; ++j)
             {
                 if (Game.World.ConnectionList[j] != null)
                 {
-                    Vector_2d PosA = Game.World.PointMassList[Game.World.ConnectionList[j].PointA].Pos;
-                    Vector_2d PosB = Game.World.PointMassList[Game.World.ConnectionList[j].PointB].Pos;
-                    Clients.Caller.setObjectFrame(j, Game.World.Frame, PosA.X, PosA.Y, PosB.X, PosB.Y, "#FFFFFF");
+                    if (Game.World.ConnectionList[j].Render)
+                    {
+                        Vector_2d PosA = Game.World.PointMassList[Game.World.ConnectionList[j].PointA].Pos;
+                        Vector_2d PosB = Game.World.PointMassList[Game.World.ConnectionList[j].PointB].Pos;
+                        float Color = Game.World.ConnectionList[j].Damadge/100;
+                        Color *= 255;
+                        int Colour = (int)Color;
+                        to.setObjectFrame(j, Game.World.Frame, PosA.X, PosA.Y, PosB.X, PosB.Y, "#FF" + Colour.ToString("X") + Colour.ToString("X"));
+                    }
                 }
             }
-            Clients.Caller.renderFrameSet(0,1);
         }
     }
 }
