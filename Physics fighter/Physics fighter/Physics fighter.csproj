@@ -104,7 +104,6 @@
     <Compile Include="Src\Game.cs" />
     <Compile Include="Src\Lobby.cs" />
     <Compile Include="Src\PointMass.cs" />
-    <Compile Include="Src\SpawnPlayer.cs" />
     <Compile Include="Src\Vector 2d.cs" />
     <Compile Include="Src\World.cs" />
     <Compile Include="Startup.cs" />

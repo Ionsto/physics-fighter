@@ -19,7 +19,7 @@ namespace Physics_fighter.Src
         }
         public void Update(World world)
         {
-            OldPos.Y -= 0.01F;
+            OldPos.Y += 0.01F;
             Intergrate();
         }
         public void Intergrate()
