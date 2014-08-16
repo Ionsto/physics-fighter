@@ -21,10 +21,9 @@ $(document).ready(function () {
     }
     function RenderEntity(connection)
     {
-        alert("Render");
         ctx.beginPath();
-        ctx.moveTo(entity.XA, entity.YA);
-        ctx.lineTo(entity.XB, entity.YB);
+        ctx.moveTo(connection.XA, connection.YA);
+        ctx.lineTo(connection.XB, connection.YB);
         ctx.stroke();
     }
     var game = $.connection.gameHub;
@@ -51,7 +50,6 @@ $(document).ready(function () {
     };
     game.client.renderFrameSet = function RenderFrameSet(framestart)
     {
-        alert("Render Set");
         ctx.clearRect(0, 0, 500, 500);
         for (var f = framestart; f < framestart + 30;++f)
         {
