@@ -21,7 +21,7 @@ namespace Physics_fighter.Src
         {
             Intergrate();
             CheckBounds();
-            Pos.Y += 1;
+            Pos.Y -= 1;
         }
         public void Intergrate()
         {

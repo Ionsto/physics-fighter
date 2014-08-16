@@ -38,7 +38,7 @@ $(document).ready(function () {
     }
     var game = $.connection.gameHub;
     game.client.setObjectFrame = function SetObjectFrame(id, frame, posxa, posya, posxb, posyb, colour) {
-        Frames[frame][id] = new Connection(posxa, posya, posxb, posyb, colour);
+        Frames[frame][id] = new Connection(500-posxa, 500-posya, 500-posxb, 500-posyb, colour);
     };
     game.client.setPlayerList = function (names)
     {
