@@ -19,7 +19,7 @@
             }
         }
     };
-    var PlayerName = "MissingNo";
+    var PlayerName = "Spec";
     document.getElementById("Join").onclick = function ()
     {
         if (document.getElementById("Join").value === "Join")
