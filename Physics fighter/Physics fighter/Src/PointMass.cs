@@ -7,6 +7,7 @@ namespace Physics_fighter.Src
 {
     public class PointMass
     {
+        float JointLimit = 90;
         public bool Render = true;
         List<int> Connected = new List<int>();//List of all the ids of connections
         public Vector_2d Pos = new Vector_2d();
@@ -21,7 +22,7 @@ namespace Physics_fighter.Src
         public void Update(World world)
         {
             Intergrate();
-            CheckBounds();
+            CheckBounds(world);
             Pos.Y -= 1;
         }
         public void Intergrate(float friction = 0.5F)
@@ -30,30 +31,30 @@ namespace Physics_fighter.Src
             Pos = Pos.Add(Pos.Sub(OldPos).Mult(friction));
             OldPos = newOld;
         }
-        public void CheckBounds()
+        public void CheckBounds(World world)
         {
 
-            if (Pos.Y < 0 || Pos.Y > 500 || Pos.X < 0 || Pos.X > 500)
+            if (Pos.Y < world.BufferSize)
             {
-                Vector_2d newOld = Pos;
-                Pos = OldPos;
-                OldPos = newOld;
+                Pos.Y = world.BufferSize;
             }
-            if (Pos.Y < 0)
+            if (Pos.Y > world.Size.Y - world.BufferSize)
             {
-                Pos.Y = 0;
+                Pos.Y = world.Size.Y - world.BufferSize;
             }
-            if (Pos.Y > 500 )
+            if (Pos.X < world.BufferSize)
             {
-                Pos.Y = 500;
+                Pos.X = world.BufferSize;
             }
-            if (Pos.X < 0)
+            if (Pos.X > world.Size.X - world.BufferSize)
             {
-                Pos.X = 0;
+                Pos.X = world.Size.X - world.BufferSize;
             }
-            if (Pos.X > 500)
+            if (Pos.Y < world.BufferSize || Pos.Y > world.Size.Y - world.BufferSize || Pos.X < world.BufferSize || Pos.X > world.Size.X - world.BufferSize)
             {
-                Pos.X = 500;
+                //Vector_2d newOld = Pos;
+                //Pos = OldPos;
+                //OldPos = newOld;
             }
         }
     }
