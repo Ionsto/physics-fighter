@@ -7,6 +7,8 @@ namespace Physics_fighter.Src
 {
     public class World
     {
+        public float BufferSize = 10;
+        public Vector_2d Size = new Vector_2d(500,500);
         public int Frame = 0;
         public List<Player> PlayerList = new List<Player>();
         public List<String> PlayerNameList = new List<String>();
