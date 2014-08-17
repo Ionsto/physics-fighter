@@ -21,15 +21,16 @@ namespace Physics_fighter.Src
             int HigherLegB = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X - HipSize, loc_floor.Y + LegHeight)));
             int LowerAbs = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X, loc_floor.Y + LegHeight + HipSize)));
 
-            world.AddConnection(new ConnectionStaticDistance(world, LowerLegA, MidLegA));
-            world.AddConnection(new ConnectionStaticDistance(world, LowerLegB, MidLegB));
-            world.AddConnection(new ConnectionStaticDistance(world, MidLegA, HigherLegA));
-            world.AddConnection(new ConnectionStaticDistance(world, MidLegB, HigherLegB));
+            int LowerLegACon = world.AddConnection(new ConnectionStaticDistance(world, LowerLegA, MidLegA));
+            int LowerLegBCon = world.AddConnection(new ConnectionStaticDistance(world, LowerLegB, MidLegB));
+            int HigherLegACon = world.AddConnection(new ConnectionStaticDistance(world, MidLegA, HigherLegA));
+            int HigherLegBCon = world.AddConnection(new ConnectionStaticDistance(world, MidLegB, HigherLegB));
             world.AddConnection(new ConnectionStaticDistance(world, HigherLegA, HigherLegB));
             world.AddConnection(new ConnectionStaticDistance(world, HigherLegA, LowerAbs));
             world.AddConnection(new ConnectionStaticDistance(world, HigherLegB, LowerAbs));
 
-
+            world.AddConnection(new ConnectionPushClose(world, LowerLegA, HigherLegA, 90, LowerLegACon, HigherLegACon));
+            world.AddConnection(new ConnectionPushClose(world, LowerLegB, HigherLegB, 90, LowerLegBCon, HigherLegBCon));
 
         }
     }
