@@ -87,8 +87,11 @@ namespace Physics_fighter.Hubs
                         }
                         if(State[i] != 0)
                         {
-                            Game.World.ConnectionList[player.JointActuators.Last()[0]].Render = false;
-                            Game.World.ConnectionList[player.JointActuators.Last()[0]].Force = 0.00001F;
+                            if (player.JointActuators.Last()[0] != -1)
+                            {
+                                Game.World.ConnectionList[player.JointActuators.Last()[0]].Render = false;
+                                Game.World.ConnectionList[player.JointActuators.Last()[0]].Force = 0.00001F;
+                            }
                         }
                     }
                 }
