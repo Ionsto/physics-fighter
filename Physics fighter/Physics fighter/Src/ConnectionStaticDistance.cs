@@ -38,7 +38,7 @@ namespace Physics_fighter.Src
             {
                 Damadge = Math.Min(Damadge + (1.0F * world.DeltaTime * world.DeltaConstraint),100);
             }
-            float Give = 1;
+            const float Give = 1;
             if (Math.Abs(Distance - UsedDistance) > Give)//Give before moving
             {
                 Vector_2d translate = new Vector_2d((float)(Dist.X * Difference), (float)(Dist.Y * Difference));

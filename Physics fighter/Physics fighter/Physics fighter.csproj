@@ -175,6 +175,7 @@
     <Compile Include="Models\LobbyModel.cs" />
     <Compile Include="Models\MainModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Src\ConnectionRotateToDirection.cs" />
     <Compile Include="Src\ConnectionStaticDistance.cs" />
     <Compile Include="Src\Connection.cs" />
     <Compile Include="Src\ConnectionPushClose.cs" />

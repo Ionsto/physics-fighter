@@ -41,5 +41,19 @@ namespace Physics_fighter.Src
         {
             return (X * v.X) + (Y * v.Y);
         }
+        public void Invert()
+        {
+            X = -X;
+            Y = -Y;
+        }
+        public Vector_2d Inverted()
+        {
+            return new Vector_2d(-X, -Y);
+        }
+        public Vector_2d Perpendicular()
+        {
+            //to 90
+            return new Vector_2d(-Y, X);
+        }
     }
 }
