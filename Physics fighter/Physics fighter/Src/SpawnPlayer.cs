@@ -54,8 +54,9 @@ namespace Physics_fighter.Src
             {
                 player.JointsId.Add(new int[] { LowerLegA, MidLegA, HigherLegA });
                 player.JointsId.Add(new int[] { LowerLegB, MidLegB, HigherLegB });
-                player.JointsId.Add(new int[] { MidLegA, HigherLegA, LowerBody});
-                player.JointsId.Add(new int[] { MidLegB, HigherLegB, LowerBody,});
+                player.JointsId.Add(new int[] { MidLegA, HigherLegA, LowerBody });
+                player.JointsId.Add(new int[] { MidLegB, HigherLegB, LowerBody });
+                player.JointsId.Add(new int[] { LowerBody, MidBody, HigherBody });
             }
         }
     }
