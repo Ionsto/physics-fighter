@@ -56,13 +56,13 @@ namespace Physics_fighter.Src
         }
         public override void ResolveConstraint(World world)
         {
-            Vector_2d Avec = world.PointMassList[PointMid].Pos.Sub(world.PointMassList[PointA].Pos);
+            Vector_2d Avec = world.PointMassList[PointMid].Pos.Sub(world.PointMassList[PointA].Pos).Perpendicular();
             if(Direction){Avec.Invert();}
             Vector_2d Bvec = world.PointMassList[PointB].Pos.Sub(world.PointMassList[PointMid].Pos);
-            float Dot = Avec.Dot(Bvec);
-            int Normal = (int)(Dot/Math.Abs(Dot));
-            const float Give = 1/10;
-            if(Math.Abs(1 - Normal) < Give)
+            float Dot = (float)Math.Sqrt(Math.Abs(Avec.Dot(Bvec)));
+            float Normal = (Dot / (float)(Math.Sqrt(Avec.Dot(Avec))));
+            const float Give = 1.0F/10.0F;
+            if(Math.Abs(1.0F - Normal) < Give)
             {
                 if(Normal < 0)
                 {
