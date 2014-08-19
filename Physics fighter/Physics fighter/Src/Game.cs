@@ -7,6 +7,7 @@ namespace Physics_fighter.Src
 {
     public class Game
     {
+        public static bool InGame = false;
         public static Lobby Lobby = null;
         public static int PlayerCount = 0;
         public static World World = null;
@@ -21,9 +22,18 @@ namespace Physics_fighter.Src
         {
             if (World == null)
             {
+                /*
+                     _
+                    \ / 
+                   \_|_/
+                     |
+                    /_\
+                   |   |
+                   |   |    
+                */
                 //12 is the minamom for body + 8 is max for wepons
                 //14 for body connectisions 10 for wepon connections
-                World = new World((12+8) * PlayerCount,(14 + 10) * PlayerCount);
+                World = new World((17+8) * PlayerCount,(15 + 10) * PlayerCount);
             }
         }
     }

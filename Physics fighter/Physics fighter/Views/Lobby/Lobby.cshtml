@@ -1,0 +1,12 @@
+﻿
+<p style="text-align:center;font-size:xx-large">The physics fighter</p>
+<input type="text" placeholder="Name of player" id="Name" /><br />
+<input type="button" value="Join" id="Join" /><input type="button" value="Ready" id="Ready" /><br />
+<p style="font-size:large;">Players</p>
+<p id="PlayerNameDisplay"></p>
+@section scripts
+{
+    <script src="/Scripts/jquery.signalR-2.1.1.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script src="/Scripts/Src/Lobby/Lobby.js"></script>
+}

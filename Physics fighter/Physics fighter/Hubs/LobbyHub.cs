@@ -39,6 +39,8 @@ namespace Physics_fighter.Hubs
                 Game.PlayerCount = Game.Lobby.PlayerList.Count;
                 Game.MakeWorldSafe();
                 Game.World.PlayerNameList = Game.Lobby.PlayerList;
+                Game.World.InitPlayers();
+                Game.InGame = true;
             }
         }
         public void UnreadyPlayer(string Name)

@@ -8,12 +8,19 @@ namespace Physics_fighter.Src
     public class ConnectionStaticDistance : Connection
     {
         //precalculated
-        float Force = 0.1F;
-        public ConnectionStaticDistance(World world, int a, int b) : base(world,a,b)
+        public ConnectionStaticDistance(World world, int a, int b)
+            : base(world, a, b)
         {
             Vector_2d Dist = world.PointMassList[PointA].Pos.Sub(world.PointMassList[PointB].Pos);
             //Resting distances
             UsedDistance = (float)Math.Sqrt((double)Dist.Dot(Dist));
+        }
+        public ConnectionStaticDistance(World world, int a, int b,float Distance)
+            : base(world, a, b)
+        {
+            Vector_2d Dist = world.PointMassList[PointA].Pos.Sub(world.PointMassList[PointB].Pos);
+            //Resting distances
+            UsedDistance = Distance;
         }
         public override void ResolveConstraint(World world)
         {
@@ -28,11 +35,11 @@ namespace Physics_fighter.Src
             }
             else
             {
-                Damadge = Math.Min(Damadge + 1,100);
+                Damadge = Math.Min(Damadge + (1.0F * world.DeltaTime * world.DeltaConstraint),100);
             }
             Vector_2d translate = new Vector_2d((float)(Dist.X * Difference), (float)(Dist.Y * Difference));
-            //translate.Mult(Force);
-            translate.Mult(0.5F);
+            translate.Mult(Force);
+            translate.Mult(0.5F);//.Mult(world.DeltaTime).Mult(world.DeltaConstraint);
             world.PointMassList[PointA].Pos = world.PointMassList[PointA].Pos.Add(translate);
             world.PointMassList[PointB].Pos = world.PointMassList[PointB].Pos.Sub(translate);
         }

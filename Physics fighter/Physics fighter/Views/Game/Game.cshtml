@@ -1,0 +1,12 @@
+﻿
+<canvas id="Render" width="500" height="500">Canvas not enabled</canvas><br />
+<div id="Frame">Frame:0</div><div id="State">State:</div><br />
+<input type="button" id="Ready" value="Ready"><input type="button" id="Replay" disabled="disabled" value="Replay"><br /><br />Ready players:<p id="ReadyPlayerDisplay"></p>
+<br />
+<div id="GameInfo" data-name="@Model.Name"></div>
+@section scripts
+{
+    <script src="/Scripts/jquery.signalR-2.1.1.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script src="/Scripts/Src/Game/Game.js"></script>
+}

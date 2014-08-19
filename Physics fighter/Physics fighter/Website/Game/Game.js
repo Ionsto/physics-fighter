@@ -22,13 +22,26 @@ $(document).ready(function () {
     {
         document.getElementById("Ready").disabled = true;
     }
+    function Joint(a,b,mid,x, y, colour, state) {
+        this.PointA = a;//Point A to actuate on
+        this.PointB = b;//Point B to actuate on
+        this.MidPoint = mid;//The point in between
+        this.X = x;
+        this.Y = y;
+        this.Colour = colour;
+        //0 = Relax
+        //1 = Hold
+        //2 = Extend
+        //2 = Contract 
+        this.State = state;
+    };
     function Connection(xa, ya, xb, yb, colour) {
         this.XA = xa;
         this.YA = ya;
         this.XB = xb;
         this.YB = yb;
         this.Colour = colour;
-    }
+    };
     function RenderEntity(connection)
     {
         ctx.fillStyle = connection.Colour;
@@ -38,12 +51,17 @@ $(document).ready(function () {
         ctx.stroke();
     }
     var game = $.connection.gameHub;
+    game.client.gameOver = function GameOver() {
+        document.getElementById("Ready").disabled = true;
+        DoReplay();
+        document.getElementById("Replay").onclick = DoReplay;
+    };
     game.client.setObjectFrame = function SetObjectFrame(id, frame, posxa, posya, posxb, posyb, colour) {
         Frames[frame][id] = new Connection(500-posxa, 500-posya, 500-posxb, 500-posyb, colour);
     };
     game.client.setPlayerList = function (names)
     {
-        if (names.length == 0)
+        if (names.length == 0 && PlayerName != "Spec")
         {
             document.getElementById("Ready").value = "Ready";
         }
@@ -51,6 +69,15 @@ $(document).ready(function () {
         for (var i = 0; i < names.length; ++i) {
                 document.getElementById("ReadyPlayerDisplay").innerHTML += names[i] + " ";
         }
+    };
+    game.client.sendJoints = function SendJoints(count,a,b,mid,x, y, colour, state)
+    {
+        var Joints = new Array(count);
+        for(var i = 0;i < count;++i)
+        {
+            Joints[i] = new Joint(a[i],b[i],mid[i],x[i], y[i], colour[i], state[i]);
+        }
+        RenderJoints(Joints);
     };
     document.getElementById("Ready").onclick = function ()
     {
@@ -60,25 +87,49 @@ $(document).ready(function () {
         }
     };
     var CurrentFrameOn = 0;
-    function RenderFrames(FrameStart, frames) {
+    function RenderFrame(frame) {
         ctx.clearRect(0, 0, 500, 500);
         for (var i = 0; i < ObjectCount; ++i) {
-            if (Frames[FrameStart + CurrentFrameOn][i] != null) {
-                RenderEntity(Frames[FrameStart + CurrentFrameOn][i]);
+            if (Frames[frame][i] != null) {
+                RenderEntity(Frames[frame][i]);
             }
         }
+    }
+    function RenderJoints(joints) {
+        //ctx.clearRect(0, 0, 500, 500);
+        var Size = 5;
+        for (var i = 0; i < joints.length;++i)
+        {
+            ctx.fillRect(joints[i].X - Size, joints[i].Y - Size, joints[i].X + Size, joints[i].Y + Size);
+        }
+    };
+    function RenderFrames(FrameStart, frames, replay) {
+        RenderFrame(FrameStart + CurrentFrameOn);
         if (++CurrentFrameOn < frames) {
             document.getElementById("Ready").disabled = true;
-            setTimeout(function () { RenderFrames(FrameStart, frames); }, 50);
+            setTimeout(function () { RenderFrames(FrameStart, frames, replay); }, 50);
             document.getElementById("Frame").innerHTML = "Frame:" + (FrameStart + CurrentFrameOn);
         }
         else {
-            document.getElementById("Ready").disabled = false;
+            if (replay) {
+                document.getElementById("Replay").disabled = false;
+            }
+            else {
+                if (PlayerName != "Spec") {
+                    document.getElementById("Ready").disabled = false;
+                    game.server.requestJoints(PlayerName);//this is called when a new game stage starts
+                }
+            }
+            CurrentFrame = FrameStart + CurrentFrameOn;
             CurrentFrameOn = 0;
         }
     };
+    function DoReplay() {
+        document.getElementById("Replay").disabled = true;
+        RenderFrames(0, FrameCount, true);
+    }
     game.client.renderFrameSet = function RenderFrameSet(framestart, frames) {
-        RenderFrames(framestart, frames);
+        RenderFrames(framestart, frames,false);
     };
     game.client.initSettings = function InitSettings(settings) {
         CurrentFrame = 0;

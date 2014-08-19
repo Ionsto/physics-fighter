@@ -10,6 +10,7 @@ namespace Physics_fighter.Src
         public ConnectionPushClose(World world, int a, int b, float MinDistanceSet = -1)
             : base(world, a, b)
         {
+            Render = false;
             Vector_2d Dist = world.PointMassList[PointA].Pos.Sub(world.PointMassList[PointB].Pos);
             //Minamum distance to apply
             if (MinDistanceSet == -1)
@@ -24,6 +25,7 @@ namespace Physics_fighter.Src
         public ConnectionPushClose(World world, int a, int b, float MinAngle,int cona,int conb)
             : base(world, a, b)
         {
+            Render = false;
             Vector_2d Dist = world.PointMassList[PointA].Pos.Sub(world.PointMassList[PointB].Pos);
             float asqd = world.ConnectionList[cona].UsedDistance * world.ConnectionList[cona].UsedDistance;
             float bsqd = world.ConnectionList[conb].UsedDistance * world.ConnectionList[conb].UsedDistance;
@@ -49,8 +51,8 @@ namespace Physics_fighter.Src
             if (Difference > 0)
             {
                 Vector_2d translate = new Vector_2d((float)(Dist.X * Difference), (float)(Dist.Y * Difference));
-               //translate.Mult(Force);
-                translate.Mult(0.5F);
+                translate.Mult(Force);
+                translate.Mult(0.5F);//.Mult(world.DeltaTime).Mult(world.DeltaConstraint);
                 world.PointMassList[PointA].Pos = world.PointMassList[PointA].Pos.Add(translate);
                 world.PointMassList[PointB].Pos = world.PointMassList[PointB].Pos.Sub(translate);
             }

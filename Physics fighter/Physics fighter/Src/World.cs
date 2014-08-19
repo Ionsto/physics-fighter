@@ -7,9 +7,16 @@ namespace Physics_fighter.Src
 {
     public class World
     {
+        public int MaxFrames = 300;
+        public int DeltaSteps = 10;
+        public float DeltaTime;
+        public int ContraintSteps = 50;
+        public float DeltaConstraint;
         public float BufferSize = 10;
         public Vector_2d Size = new Vector_2d(500,500);
         public int Frame = 0;
+        int CurrentSpawnLoc = 0;
+        public List<Vector_2d> SpawnLocations = new List<Vector_2d>();
         public List<Player> PlayerList = new List<Player>();
         public List<String> PlayerNameList = new List<String>();
         public List<String> ReadyList = new List<String>();
@@ -27,8 +34,26 @@ namespace Physics_fighter.Src
             {
                 ConnectionList[i] = null;
             }
-            new SpawnPlayer(this, new Vector_2d(100, 50));
-            new SpawnPlayer(this, new Vector_2d(400, 50));
+            SpawnLocations.Add(new Vector_2d(100, 50));
+            SpawnLocations.Add(new Vector_2d(400, 50));
+            //new SpawnPlayer(this, new Vector_2d(100, 50));
+            //new SpawnPlayer(this, new Vector_2d(400, 50));
+            DeltaTime = 1.0F / DeltaSteps;
+            DeltaConstraint = 1.0F / ContraintSteps;
+        }
+        public void InitPlayers()
+        {
+            for (int i = 0; i < PlayerNameList.Count;++i)
+            {
+                Player player = new Player();
+                player.Name = PlayerNameList[i];
+                player.Team = i;
+                PlayerList.Add(player);
+                if(CurrentSpawnLoc < SpawnLocations.Count)
+                {
+                    player.Spawn(this,SpawnLocations[CurrentSpawnLoc++]);
+                }
+            }
         }
         public int AddPointMass(PointMass point)
         {
@@ -51,6 +76,8 @@ namespace Physics_fighter.Src
                 {
                     connection.Id = i;
                     ConnectionList[i] = connection;
+                    PointMassList[connection.PointA].Connected.Add(i);
+                    PointMassList[connection.PointB].Connected.Add(i);
                     return i;
                 }
             }
@@ -58,21 +85,24 @@ namespace Physics_fighter.Src
         }
         public void Update()
         {
-            Collision();
-            for (int i = 0; i < PointMassList.Length; ++i)
+            for (int step = 0; step < DeltaSteps; ++step)
             {
-                if (PointMassList[i] != null)
+                for (int i = 0; i < PointMassList.Length; ++i)
                 {
-                    PointMassList[i].Update(this);
-                }
-            }
-            for (int j = 0; j < 4; ++j)
-            {
-                for (int i = 0; i < ConnectionList.Length; ++i)
-                {
-                    if (ConnectionList[i] != null)
+                    if (PointMassList[i] != null)
                     {
-                        ConnectionList[i].Update(this);
+                        PointMassList[i].Update(this);
+                    }
+                }
+                Collision();
+                for (int j = 0; j < ContraintSteps; ++j)
+                {
+                    for (int i = 0; i < ConnectionList.Length; ++i)
+                    {
+                        if (ConnectionList[i] != null)
+                        {
+                            ConnectionList[i].Update(this);
+                        }
                     }
                 }
             }
@@ -96,24 +126,41 @@ namespace Physics_fighter.Src
                                 Points[1] = PointMassList[ConnectionList[i].PointB];
                                 Points[2] = PointMassList[ConnectionList[j].PointA];
                                 Points[3] = PointMassList[ConnectionList[j].PointB];
-                                Coll(Points[0], Points[2]);
-                                Coll(Points[0], Points[3]);
-                                Coll(Points[1], Points[2]);
-                                Coll(Points[1], Points[3]);
+                                if (ConnectedAtoB(Points[0], PointMassList[2]) && ConnectedAtoB(Points[2], PointMassList[0]))
+                                {
+                                    if (ConnectedAtoB(Points[1], PointMassList[3]) && ConnectedAtoB(Points[3], PointMassList[1]))
+                                    {
+                                        Coll(Points[0], Points[2]);
+                                        Coll(Points[0], Points[3]);
+                                        Coll(Points[1], Points[2]);
+                                        Coll(Points[1], Points[3]);
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
         }
+        public bool ConnectedAtoB(PointMass a,PointMass b)
+        {
+            foreach(int k in a.Connected)
+            {
+                if (ConnectionList[k].PointA == b.Id || ConnectionList[k].PointB == b.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public void Coll(PointMass a,PointMass b)
         {
             Vector_2d diff = a.Pos.Sub(b.Pos);
-            diff = diff.Mult(diff);
-            diff = new Vector_2d(1, 1).Div(diff);
+            float InputForce = 1.0F/(float)Math.Sqrt(diff.Dot(diff));
+            diff.Div(InputForce);
             diff.Mult(0.5F);
-            a.Pos = a.Pos.Sub(diff);
-            b.Pos = b.Pos.Add(diff);
+            a.Pos = a.Pos.Add(diff);
+            b.Pos = b.Pos.Sub(diff);
         }
         public bool get_line_intersection(Vector_2d p0, Vector_2d p1, Vector_2d p2, Vector_2d p3)
         {

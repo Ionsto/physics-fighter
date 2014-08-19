@@ -10,8 +10,10 @@ namespace Physics_fighter.Src
         public int Team = -1;
         public string Name = "Spec";
         public float Score = 0;//This is damadge delt to player
+        public List<int[]> JointActuators = new List<int[]>();//0 is the id of actuator, 1 is the PointMass said acutator is assined to
         public List<int> Connctions = new List<int>();//The parts owned
         public List<int> PointMasses = new List<int>();//dito
+        public List<int[]> JointsId = new List<int[]>();//A,Mid,B
         public void GetScore(World world)
         {
             for (int i = 0; i < Connctions.Count;++i )
@@ -25,6 +27,10 @@ namespace Physics_fighter.Src
                     Score += 150;//The penilty for total anhalation
                 }
             }
+        }
+        public void Spawn(World world,Vector_2d pos)
+        {
+            new SpawnPlayer(world,pos,this);
         }
     }
 }

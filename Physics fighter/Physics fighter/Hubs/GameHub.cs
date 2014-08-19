@@ -15,32 +15,144 @@ namespace Physics_fighter.Hubs
             Clients.All.SetObjectFrame(id,frame,posx,posy,colour);
         }
         //this function is called by the clients and applys the forces to the user bodys allong with readying them
-        public void ReadyState(string Name,int []Ids,float [] Forces)
+        public void ReadyState(string Name,int []A,int [] Mid, int []B,int[] State)
         {
             Game.MakeWorldSafe();
-            Game.World.ReadyList.Add(Name);
-            for (int i = 0; i < Ids.Length;++i )
+            if (Game.World.Frame < Game.World.MaxFrames-1)
             {
-                //Game.World.ConnectionList[Ids[i]].ApplyForce(Forces[i]);
-            }
-            Clients.All.setPlayerList(Game.World.ReadyList);
-            if (Game.World.ReadyList.Count == Game.World.PlayerNameList.Count)
-            {
-                for(int i = 0;i < 30;++i)
+                Game.World.ReadyList.Add(Name);
+                for (int i = 0; i < Mid.Length; ++i)
                 {
-                    Game.World.Update();
-                    SendRenderData(Clients.All);
+                    if (Game.World.PointMassList[Mid[i]].State != State[i])
+                    {
+                        Game.World.PointMassList[Mid[i]].State = State[i];
+                        Player player = Game.World.PlayerList[Game.World.PlayerNameList.IndexOf(Name)];
+                        for (int j = 0; j < player.JointActuators.Count;++j)
+                        {
+                            if(player.JointActuators[j][1] == Mid[i])
+                            {
+                                if (Game.World.ConnectionList[player.JointActuators[j][0]] != null)
+                                {
+                                    Game.World.ConnectionList[player.JointActuators[j][0]].Destroy(Game.World);
+                                }
+                            }
+                        }
+                        if (State[i] == 1)
+                        {
+                            player.JointActuators.Add(new int[]{Game.World.AddConnection(new ConnectionStaticDistance(Game.World, A[i], B[i])),Mid[i]});
+                        }
+                        if (State[i] == 2)
+                        {
+                            float Distance = 1;
+                            foreach(int k in Game.World.PointMassList[Mid[i]].Connected)
+                            {
+                                if (k != -1)
+                                {
+                                    if (Game.World.ConnectionList[k].PointA == A[i] || Game.World.ConnectionList[k].PointB == A[i])
+                                    {
+                                        Distance += Game.World.ConnectionList[k].UsedDistance;
+                                    }
+                                    if (Game.World.ConnectionList[k].PointA == B[i] || Game.World.ConnectionList[k].PointB == B[i])
+                                    {
+                                        Distance += Game.World.ConnectionList[k].UsedDistance;
+                                    }
+                                }
+                            }
+                            player.JointActuators.Add(new int[]{Game.World.AddConnection(new ConnectionStaticDistance(Game.World, A[i], B[i],Distance)),Mid[i]});
+                        }
+                        if (State[i] == 3)
+                        {
+                            int cona = -1;
+                            int conb = -1;
+                            foreach (int k in Game.World.PointMassList[Mid[i]].Connected)
+                            {
+                                if (k != -1)
+                                {
+                                    if (Game.World.ConnectionList[k].PointA == A[i] || Game.World.ConnectionList[k].PointB == A[i])
+                                    {
+                                        cona = k;
+                                    }
+                                    if (Game.World.ConnectionList[k].PointA == B[i] || Game.World.ConnectionList[k].PointB == B[i])
+                                    {
+                                        conb = k;
+                                    }
+                                }
+                            }
+                            Vector_2d Dist = Game.World.PointMassList[A[i]].Pos.Sub(Game.World.PointMassList[B[i]].Pos);
+                            float asqd = Game.World.ConnectionList[cona].UsedDistance * Game.World.ConnectionList[cona].UsedDistance;
+                            float bsqd = Game.World.ConnectionList[conb].UsedDistance * Game.World.ConnectionList[conb].UsedDistance;
+                            float distance = (float)Math.Sqrt((float)(asqd + bsqd - (2 * Game.World.ConnectionList[cona].UsedDistance * Game.World.ConnectionList[conb].UsedDistance * Math.Cos((float)Game.World.PointMassList[Mid[i]].JointLimit * (3.14 / 180)))));
+
+                            player.JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionStaticDistance(Game.World, A[i], B[i], distance)), Mid[i] });
+                        }
+                        if(State[i] != 0)
+                        {
+                            Game.World.ConnectionList[player.JointActuators.Last()[0]].Force = 0.00001F;
+                        }
+                        Game.World.ConnectionList[player.JointActuators.Last()[0]].Render = false;
+                    }
                 }
-                Game.World.ReadyList.Clear();
-                Clients.All.renderFrameSet(Game.World.Frame - 30,30);
+                Clients.All.setPlayerList(Game.World.ReadyList);
+                if (Game.World.ReadyList.Count == Game.World.PlayerNameList.Count)
+                {
+                    int Count = Math.Min(30,(Game.World.MaxFrames-1) - Game.World.Frame);
+                    for (int i = 0; i < Count; ++i)
+                    {
+                        Game.World.Update();
+                        SendRenderData(Clients.All);
+                    }
+                    Game.World.ReadyList.Clear();
+                    Clients.All.renderFrameSet(Game.World.Frame - Count, Count);
+                }
+                Clients.All.setPlayerList(Game.World.ReadyList);
             }
-            Clients.All.setPlayerList(Game.World.ReadyList);
+            if (Game.World.Frame >= Game.World.MaxFrames-1)
+            {
+                Clients.All.gameOver();
+            }
+        }
+        public void RequestJoints(string Name)
+        {
+            Player player = Game.World.PlayerList[Game.World.PlayerNameList.IndexOf(Name)];
+            List<int> A = new List<int>();
+            List<int> B = new List<int>();
+            List<int> Mid = new List<int>();
+            List<float> X = new List<float>();
+            List<float> Y = new List<float>();
+            List<string> Colour = new List<string>();
+            List<int> State = new List<int>();
+            for (int i = 0; i < player.JointsId.Count;++i )
+            {
+                bool JointNull = false;
+                for(int j = 0;j < 3;++j)
+                {
+                    if(Game.World.PointMassList[player.JointsId[i][j]] == null)
+                    {
+                        player.JointsId.RemoveAt(i);
+                        JointNull = true;;
+                        break;
+                    }
+                }
+                if (!JointNull)
+                {
+                    // A -- Mid
+                    //         \
+                    //          B
+                    A.Add(player.JointsId[i][0]);
+                    Mid.Add(player.JointsId[i][1]);
+                    B.Add(player.JointsId[i][2]);
+                    X.Add(Game.World.PointMassList[player.JointsId[i][1]].Pos.X);
+                    Y.Add(Game.World.PointMassList[player.JointsId[i][1]].Pos.Y);
+                    State.Add(Game.World.PointMassList[player.JointsId[i][1]].State);
+                }
+            }
+            Clients.Caller.sendJoints(A.Count,A,B,Mid,X,Y,Colour,State);
         }
         public void RequestSettings()
         {
             Game.MakeWorldSafe();
             int[] Settings = new int[2];
-            Settings[0] = 300;
+            Settings[0] = Game.World.MaxFrames;
             Settings[1] = Game.World.ConnectionList.Length;
             Clients.Caller.initSettings(Settings);
             //Preliminary
