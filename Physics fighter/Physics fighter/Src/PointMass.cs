@@ -18,12 +18,20 @@ namespace Physics_fighter.Src
         public List<int> Connected = new List<int>();//List of all the ids of connections
         public Vector_2d Pos = new Vector_2d();
         public Vector_2d OldPos = new Vector_2d();
+        public float Mass = 0;
+        public float InverseMass = 0;
         public int Id = -1;
         public int Player = -1;//Neutral
         public PointMass(Vector_2d loc)
         {
             Pos = loc;
             OldPos = loc;
+            SetMass(10);
+        }
+        public void SetMass(float newmass)
+        {
+            Mass = newmass;
+            InverseMass = 1 / Mass;
         }
         public void Update(World world)
         {
