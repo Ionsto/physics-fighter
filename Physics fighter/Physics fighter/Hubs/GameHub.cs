@@ -62,28 +62,11 @@ namespace Physics_fighter.Hubs
                         }
                         if (State[i] == 3)
                         {
-                            int cona = -1;
-                            int conb = -1;
-                            foreach (int k in Game.World.PointMassList[Mid[i]].Connected)
-                            {
-                                if (k != -1)
-                                {
-                                    if (Game.World.ConnectionList[k].PointA == A[i] || Game.World.ConnectionList[k].PointB == A[i])
-                                    {
-                                        cona = k;
-                                    }
-                                    if (Game.World.ConnectionList[k].PointA == B[i] || Game.World.ConnectionList[k].PointB == B[i])
-                                    {
-                                        conb = k;
-                                    }
-                                }
-                            }
-                            Vector_2d Dist = Game.World.PointMassList[A[i]].Pos.Sub(Game.World.PointMassList[B[i]].Pos);
-                            float asqd = Game.World.ConnectionList[cona].UsedDistance * Game.World.ConnectionList[cona].UsedDistance;
-                            float bsqd = Game.World.ConnectionList[conb].UsedDistance * Game.World.ConnectionList[conb].UsedDistance;
-                            float distance = (float)Math.Sqrt((float)(asqd + bsqd - (2 * Game.World.ConnectionList[cona].UsedDistance * Game.World.ConnectionList[conb].UsedDistance * Math.Cos((float)Game.World.PointMassList[Mid[i]].JointLimit * (3.14 / 180)))));
-
-                            player.JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionStaticDistance(Game.World, A[i], B[i], distance)), Mid[i] });
+                            player.JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionRotateToDirection(Game.World, A[i], Mid[i], B[i], false)), Mid[i] });
+                        }
+                        if (State[i] == 4)
+                        {
+                            player.JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionRotateToDirection(Game.World, A[i], Mid[i], B[i], true)), Mid[i] });
                         }
                         if(State[i] != 0)
                         {
