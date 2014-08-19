@@ -23,7 +23,8 @@
         //0 = Relax
         //1 = Hold
         //2 = Extend
-        //3 = Contract 
+        //3 = Contract ClockWise
+        //4 = Contract Counter ClockWise
         this.State = state;
     };
     function Connection(xa, ya, xb, yb, colour) {
@@ -164,17 +165,7 @@
                     if (Math.abs(Joints[i].X - mousex) < JointSize && Math.abs(Joints[i].Y - mousey) < JointSize)
                     {
                         InteractJoint = i;
-                        var Message = "";
-                        if (Joints[InteractJoint].State == 0) {
-                            Message = "Relax";
-                        } if (Joints[InteractJoint].State == 1) {
-                            Message = "Hold";
-                        } if (Joints[InteractJoint].State == 2) {
-                            Message = "Extend";
-                        } if (Joints[InteractJoint].State == 3) {
-                            Message = "Contract";
-                        }
-                        document.getElementById("State").innerHTML = "State:" + Message;
+                        SetJointOutput(InteractJoint);
                         return;
                     }
                 }
@@ -213,28 +204,34 @@
                 if (event.which == 97) {//A
                     if(--Joints[InteractJoint].State < 0)
                     {
-                        Joints[InteractJoint].State = 3;
+                        Joints[InteractJoint].State = 4;
                     }
                 }
                 if (event.which == 100) {//D
-                    if (++Joints[InteractJoint].State > 3)
+                    if (++Joints[InteractJoint].State > 4)
                     {
                         Joints[InteractJoint].State = 0;
                     }
                 }
-                var Message = "";
-                if (Joints[InteractJoint].State == 0) {
-                    Message = "Relax";
-                } if (Joints[InteractJoint].State == 1) {
-                    Message = "Hold";
-                } if (Joints[InteractJoint].State == 2) {
-                    Message = "Extend";
-                } if (Joints[InteractJoint].State == 3) {
-                    Message = "Contract";
-                }
-                document.getElementById("State").innerHTML = "State:"+Message;
+                SetJointOutput(InteractJoint);
             }
         }
+    };
+    function SetJointOutput(joint) {
+        var Message = "";
+        if (Joints[InteractJoint].State == 0) {
+            Message = "Relax";
+        } if (Joints[InteractJoint].State == 1) {
+            Message = "Hold";
+        } if (Joints[InteractJoint].State == 2) {
+            Message = "Extend";
+        } if (Joints[InteractJoint].State == 3) {
+            Message = "Contract Clockwise";
+        } if (Joints[InteractJoint].State == 4) {
+            Message = "Contract CounterClockwise";
+        }
+        document.getElementById("State").innerHTML = "State:" + Message;
+
     };
     $.connection.hub.start().done(function ()
     {
