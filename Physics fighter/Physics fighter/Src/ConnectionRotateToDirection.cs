@@ -62,7 +62,7 @@ namespace Physics_fighter.Src
             float Dot = (float)Math.Sqrt(Math.Abs(Avec.Dot(Bvec)));
             float Normal = (Dot / (float)(Math.Sqrt(Avec.Dot(Avec))));
             const float Give = 1.0F/10.0F;
-            if(Math.Abs(1.0F - Normal) < Give)
+            if(Math.Abs(1.0F - Normal) > Give)
             {
                 if(Normal < 0)
                 {
