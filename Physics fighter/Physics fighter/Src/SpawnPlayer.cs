@@ -21,14 +21,17 @@ namespace Physics_fighter.Src
             int HigherLegA = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X + HipSize, loc_floor.Y + LegHeight)));
             int HigherLegB = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X - HipSize, loc_floor.Y + LegHeight)));
             int LowerBody = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X, loc_floor.Y + LegHeight + HipSize)));
+            int LowerHip = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X, loc_floor.Y + LegHeight - HipSize)));
 
             int LowerLegACon = world.AddConnection(new ConnectionStaticDistance(world, LowerLegA, MidLegA));
             int LowerLegBCon = world.AddConnection(new ConnectionStaticDistance(world, LowerLegB, MidLegB));
             int HigherLegACon = world.AddConnection(new ConnectionStaticDistance(world, MidLegA, HigherLegA));
             int HigherLegBCon = world.AddConnection(new ConnectionStaticDistance(world, MidLegB, HigherLegB));
-            int HipConMid = world.AddConnection(new ConnectionStaticDistance(world, HigherLegA, HigherLegB));
             int HipConA = world.AddConnection(new ConnectionStaticDistance(world, HigherLegA, LowerBody));
             int HipConB = world.AddConnection(new ConnectionStaticDistance(world, HigherLegB, LowerBody));
+            int HipConC = world.AddConnection(new ConnectionStaticDistance(world, HigherLegA, LowerHip));
+            int HipConD = world.AddConnection(new ConnectionStaticDistance(world, HigherLegB, LowerHip));
+            int HipConE = world.AddConnection(new ConnectionStaticDistance(world, LowerBody, LowerHip));
             world.AddConnection(new ConnectionPushClose(world, LowerLegA, HigherLegA, 90, LowerLegACon, HigherLegACon));
             world.AddConnection(new ConnectionPushClose(world, LowerLegB, HigherLegB, 90, LowerLegBCon, HigherLegBCon));
             world.AddConnection(new ConnectionPushClose(world, LowerBody, MidLegA, 90, HipConA, HigherLegACon));
@@ -55,9 +58,8 @@ namespace Physics_fighter.Src
                 player.JointsId.Add(new int[] { LowerLegA, MidLegA, HigherLegA });
                 player.JointsId.Add(new int[] { LowerLegB, MidLegB, HigherLegB });
                 player.JointsId.Add(new int[] { MidLegA, HigherLegA, LowerBody });
-                player.JointsId.Add(new int[] { MidLegB, HigherLegB, LowerBody, });
-                player.JointsId.Add(new int[] { MidLegA, HigherLegA, LowerBody });
                 player.JointsId.Add(new int[] { MidLegB, HigherLegB, LowerBody });
+                player.JointsId.Add(new int[] { LowerHip, LowerBody, MidBody });
                 player.JointsId.Add(new int[] { LowerBody, MidBody, HigherBody });
             }
         }

@@ -7,8 +7,8 @@ namespace Physics_fighter.Src
 {
     public class World
     {
-        public int MaxFrames = 300;
-        public int DeltaSteps = 10;
+        public int MaxFrames = 100;
+        public int DeltaSteps = 20;
         public float DeltaTime;
         public int ContraintSteps = 50;
         public float DeltaConstraint;
@@ -34,8 +34,8 @@ namespace Physics_fighter.Src
             {
                 ConnectionList[i] = null;
             }
-            SpawnLocations.Add(new Vector_2d(100, 50));
-            SpawnLocations.Add(new Vector_2d(400, 50));
+            SpawnLocations.Add(new Vector_2d(200, 50));
+            SpawnLocations.Add(new Vector_2d(300, 50));
             //new SpawnPlayer(this, new Vector_2d(100, 50));
             //new SpawnPlayer(this, new Vector_2d(400, 50));
             DeltaTime = 1.0F / DeltaSteps;
@@ -94,7 +94,7 @@ namespace Physics_fighter.Src
                         PointMassList[i].Update(this);
                     }
                 }
-                Collision();
+                //Collision();
                 for (int j = 0; j < ContraintSteps; ++j)
                 {
                     for (int i = 0; i < ConnectionList.Length; ++i)
