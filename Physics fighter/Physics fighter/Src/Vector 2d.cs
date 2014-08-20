@@ -41,6 +41,10 @@ namespace Physics_fighter.Src
         {
             return (X * v.X) + (Y * v.Y);
         }
+        public Vector_2d Normal()
+        {
+            return this.Div((float)Math.Sqrt(this.Dot(this)));
+        }
         public void Invert()
         {
             X = -X;

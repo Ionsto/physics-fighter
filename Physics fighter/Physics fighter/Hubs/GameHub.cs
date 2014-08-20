@@ -76,9 +76,9 @@ namespace Physics_fighter.Hubs
                             if (player.JointActuators.Last()[0] != -1)
                             {
                                 Game.World.ConnectionList[player.JointActuators.Last()[0]].Render = false;
-                                Game.World.ConnectionList[player.JointActuators.Last()[0]].MaxForce = Game.World.PointMassList[Mid[i]].ForceApplied;
-                                Game.World.ConnectionList[player.JointActuators.Last()[0]].Force = 0.0F;
-                                Game.World.ConnectionList[player.JointActuators.Last()[0]].ForceStep = 1F;
+                                //Game.World.ConnectionList[player.JointActuators.Last()[0]].MaxForce = Game.World.PointMassList[Mid[i]].ForceApplied;
+                                Game.World.ConnectionList[player.JointActuators.Last()[0]].Force = 1.0F/6000.0F;//Move takes 30 frames
+                                //Game.World.ConnectionList[player.JointActuators.Last()[0]].ForceStep = 1F;
                             }
                         }
                     }

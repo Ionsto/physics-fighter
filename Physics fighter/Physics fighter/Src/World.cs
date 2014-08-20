@@ -34,8 +34,9 @@ namespace Physics_fighter.Src
             {
                 ConnectionList[i] = null;
             }
-            SpawnLocations.Add(new Vector_2d(200, 50));
-            SpawnLocations.Add(new Vector_2d(300, 50));
+            SpawnLocations.Add(new Vector_2d(50, 50));
+            SpawnLocations.Add(new Vector_2d(250, 50));
+            SpawnLocations.Add(new Vector_2d(500, 50));
             //new SpawnPlayer(this, new Vector_2d(100, 50));
             //new SpawnPlayer(this, new Vector_2d(400, 50));
             DeltaTime = 1.0F / DeltaSteps;

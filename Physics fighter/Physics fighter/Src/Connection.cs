@@ -18,7 +18,7 @@ namespace Physics_fighter.Src
         public float MaxForce = 1;
         public float Damadge = 100;
         public float UsedDistance = 0;//The lumped distance variable
-        public float Stiffness = 0.5F;
+        public float Stiffness = 0.8F;
         public Connection(World world,int a,int b)
         {
             PointA = a;

@@ -226,9 +226,9 @@
         } if (Joints[InteractJoint].State == 2) {
             Message = "Extend";
         } if (Joints[InteractJoint].State == 3) {
-            Message = "Contract CounterClockwise";
-        } if (Joints[InteractJoint].State == 4) {
             Message = "Contract Clockwise";
+        } if (Joints[InteractJoint].State == 4) {
+            Message = "Contract CounterClockwise";
         }
         document.getElementById("State").innerHTML = "State:" + Message;
 

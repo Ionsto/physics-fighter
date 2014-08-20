@@ -39,15 +39,6 @@ namespace Physics_fighter.Src
             float DistDot = Dist.Dot(Dist);
             float Distance = (float)Math.Sqrt(DistDot);
             float Difference = (UsedDistance - Distance) / Distance;
-            if (Math.Abs(Distance - UsedDistance) > DistanceHeld)//Give before taking damadge
-            {
-                Damadge -= 5 * Math.Abs(Distance - UsedDistance) / DistanceHeld;
-                Damadge = Math.Max(0, Damadge);//For colour
-            }
-            else
-            {
-                Damadge = Math.Min(Damadge + 1,100);
-            }
             if (Difference > 0)
             {
                 Vector_2d translate = new Vector_2d((float)(Dist.X * Difference), (float)(Dist.Y * Difference));

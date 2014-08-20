@@ -33,7 +33,7 @@ namespace Physics_fighter.Src
                 */
                 //12 is the minamom for body + 8 is max for wepons
                 //14 for body connectisions 10 for wepon connections
-                World = new World((25+8) * PlayerCount,(30 + 10) * 2 * PlayerCount);
+                World = new World((25+8) * PlayerCount,(60 + 10) * 2 * PlayerCount);
             }
         }
     }

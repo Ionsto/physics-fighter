@@ -40,15 +40,15 @@ namespace Physics_fighter.Src
         {
             CheckBounds(world);
             Intergrate(world);
-            Pos.Y -= 2 * world.DeltaTime;
+            Pos.Y -= 5 * world.DeltaTime;
         }
-        public void Intergrate(World world,float friction = 0.9F)
+        public void Intergrate(World world,float friction = 0.999999F)
         {
             Vector_2d newOld = Pos;
-            Vector_2d Friction = new Vector_2d(friction,friction);//Normal air friction
+            Vector_2d Friction = new Vector_2d(1,1).Mult(friction);//Normal air friction
             if(OnGround)
             {
-                Friction.X /= 1000.0F;
+                //Friction.X = 0.2F;
             }
             Pos = Pos.Add(Pos.Sub(OldPos).Mult(Friction).Mult(world.DeltaTime));
             OldPos = newOld;
@@ -87,8 +87,9 @@ namespace Physics_fighter.Src
             }
             if (Affect)
             {
-                Vector_2d newOld = Pos;
-                OldPos = newOld.Sub(Displace.Mult(5));
+                Vector_2d newOld = Pos.Add(Displace.Mult(2));
+                Pos = OldPos;
+                OldPos = newOld;
             }
         }
     }
