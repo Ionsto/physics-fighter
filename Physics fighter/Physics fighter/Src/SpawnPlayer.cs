@@ -42,12 +42,26 @@ namespace Physics_fighter.Src
             float BodyHeight = 50;
             int MidBody = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X, loc_floor.Y + LegHeight + (BodyHeight / 2))));
             int HigherBody = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X, loc_floor.Y + LegHeight + BodyHeight)));
-            int ShoulderWidth = 10;
+            int ShoulderWidth = 20;
             int ShoulderHeight = 10;
             int ShoulderA = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X + ShoulderWidth, loc_floor.Y + LegHeight + BodyHeight + ShoulderHeight)));
             int ShoulderB = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X - ShoulderWidth, loc_floor.Y + LegHeight + BodyHeight + ShoulderHeight)));
             float NeckHeight = 30;
-            int LowerNeck = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X, loc_floor.Y + LegHeight + BodyHeight + ShoulderHeight + (NeckHeight/2))));
+            int LowerNeck = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X, loc_floor.Y + LegHeight + BodyHeight + ShoulderHeight + (NeckHeight / 2))));
+            int HigherNeck = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X, loc_floor.Y + LegHeight + BodyHeight + ShoulderHeight + (NeckHeight))));
+            int HeadSize = 20;
+            int TopHead = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X, loc_floor.Y + LegHeight + BodyHeight + ShoulderHeight + NeckHeight + HeadSize)));
+            int HeadA = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X + HeadSize, loc_floor.Y + LegHeight + BodyHeight + ShoulderHeight + NeckHeight + (HeadSize/2))));
+            int HeadB = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X - HeadSize, loc_floor.Y + LegHeight + BodyHeight + ShoulderHeight + NeckHeight + (HeadSize / 2))));
+
+            int ArmTaper = 30;
+            int UpperArmDrop = 10;
+            int LowerArmDrop = 20;
+            int MidArmA = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X + ShoulderWidth + (ArmTaper / 2), loc_floor.Y + LegHeight + BodyHeight + ShoulderHeight - UpperArmDrop)));
+            int MidArmB = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X - (ShoulderWidth + (ArmTaper / 2)), loc_floor.Y + LegHeight + BodyHeight + ShoulderHeight - UpperArmDrop)));
+            int LowerArmA = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X + ShoulderWidth + ArmTaper, loc_floor.Y + LegHeight + BodyHeight + ShoulderHeight - (UpperArmDrop + LowerArmDrop))));
+            int LowerArmB = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X - (ShoulderWidth + ArmTaper), loc_floor.Y + LegHeight + BodyHeight + ShoulderHeight - (UpperArmDrop + LowerArmDrop))));
+            
             int LowerBodyCon = world.AddConnection(new ConnectionStaticDistance(world, LowerBody, MidBody));
             int HigherBodyCon = world.AddConnection(new ConnectionStaticDistance(world, MidBody, HigherBody));
             int ShoulderConA = world.AddConnection(new ConnectionStaticDistance(world, HigherBody, ShoulderA));
@@ -56,7 +70,21 @@ namespace Physics_fighter.Src
             int ShoulderConE = world.AddConnection(new ConnectionStaticDistance(world, LowerNeck, ShoulderA));
             int ShoulderConF = world.AddConnection(new ConnectionStaticDistance(world, LowerNeck, ShoulderB));
             int ShoulderCon = world.AddConnection(new ConnectionStaticDistance(world, ShoulderA, ShoulderB));
+            int NeckConA = world.AddConnection(new ConnectionStaticDistance(world, HigherBody, LowerNeck));
+            int NeckConB = world.AddConnection(new ConnectionStaticDistance(world, LowerNeck, TopHead));
+            int HeadConA = world.AddConnection(new ConnectionStaticDistance(world, HeadA, HeadB));
+            int HeadConB = world.AddConnection(new ConnectionStaticDistance(world, HeadA, HeadB));
+            int HeadConC = world.AddConnection(new ConnectionStaticDistance(world, HeadA, TopHead));
+            int HeadConD = world.AddConnection(new ConnectionStaticDistance(world, HeadB, TopHead));
+            int HeadConE = world.AddConnection(new ConnectionStaticDistance(world, HeadA, HigherNeck));
+            int HeadConF = world.AddConnection(new ConnectionStaticDistance(world, HeadB, HigherNeck));
 
+            int ArmUpperConA = world.AddConnection(new ConnectionStaticDistance(world, ShoulderA, MidArmA));
+            int ArmUpperConB = world.AddConnection(new ConnectionStaticDistance(world, ShoulderB, MidArmB));
+
+            int ArmLowerConA = world.AddConnection(new ConnectionStaticDistance(world, MidArmA, LowerArmA));
+            int ArmLowerConB = world.AddConnection(new ConnectionStaticDistance(world, MidArmB, LowerArmB));
+            
             world.AddConnection(new ConnectionPushClose(world, HigherLegA, MidBody, 90, HipConA, LowerBodyCon));
             world.AddConnection(new ConnectionPushClose(world, HigherLegB, MidBody, 90, HipConB, LowerBodyCon));
             world.AddConnection(new ConnectionPushClose(world, LowerHip, MidBody, 90, HipConF, LowerBodyCon));
@@ -73,6 +101,8 @@ namespace Physics_fighter.Src
                 player.JointsId.Add(new int[] { LowerHip, LowerBody, MidBody });
                 player.JointsId.Add(new int[] { LowerBody, MidBody, HigherBody });
                 player.JointsId.Add(new int[] { MidBody, HigherBody, LowerNeck });
+                player.JointsId.Add(new int[] { HigherBody, LowerNeck, HigherNeck });
+                player.JointsId.Add(new int[] { LowerNeck, HigherNeck, TopHead });
             }
         }
     }
