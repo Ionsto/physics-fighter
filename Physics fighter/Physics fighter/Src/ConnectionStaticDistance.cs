@@ -7,7 +7,6 @@ namespace Physics_fighter.Src
 {
     public class ConnectionStaticDistance : Connection
     {
-        float Stiffness = 0.5F;
         //precalculated
         public ConnectionStaticDistance(World world, int a, int b)
             : base(world, a, b)
@@ -15,6 +14,7 @@ namespace Physics_fighter.Src
             Vector_2d Dist = world.PointMassList[PointA].Pos.Sub(world.PointMassList[PointB].Pos);
             //Resting distances
             UsedDistance = (float)Math.Sqrt((double)Dist.Dot(Dist));
+            Stiffness = 0.9F;
         }
         public ConnectionStaticDistance(World world, int a, int b,float Distance)
             : base(world, a, b)
@@ -25,7 +25,6 @@ namespace Physics_fighter.Src
         }
         public override void ResolveConstraint(World world)
         {
-
             Vector_2d Dist = world.PointMassList[PointA].Pos.Sub(world.PointMassList[PointB].Pos);
             float Distance = (float)Math.Sqrt(Dist.Dot(Dist));
             float Difference = (UsedDistance - Distance) / Distance;
@@ -42,8 +41,9 @@ namespace Physics_fighter.Src
             if (Math.Abs(Distance - UsedDistance) > Give)//Give before moving
             {
                 Vector_2d translate = new Vector_2d((float)(Dist.X * Difference), (float)(Dist.Y * Difference));
+                Force = Math.Min(Force + ForceStep, MaxForce);
                 translate.Mult(Force);
-                translate.Mult(0.5F);//.Mult(world.DeltaTime).Mult(world.DeltaConstraint);
+                translate.Mult(0.5F).Mult(world.DeltaTime).Mult(world.DeltaConstraint);
                 float scalarP1 = (world.PointMassList[PointA].InverseMass / (world.PointMassList[PointA].InverseMass + world.PointMassList[PointB].InverseMass)) * Stiffness;
                 float scalarP2 = Stiffness - scalarP1;
                 world.PointMassList[PointA].Pos = world.PointMassList[PointA].Pos.Add(translate.Mult(scalarP1));

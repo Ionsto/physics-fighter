@@ -61,7 +61,7 @@ namespace Physics_fighter.Src
             Vector_2d Bvec = world.PointMassList[PointB].Pos.Sub(world.PointMassList[PointMid].Pos);
             float Dot = (float)Math.Sqrt(Math.Abs(Avec.Dot(Bvec)));
             float Normal = (Dot / (float)(Math.Sqrt(Avec.Dot(Avec))));
-            const float Give = 1.0F/10.0F;
+            const float Give = 0;//1.0F/10.0F;
             if(Math.Abs(1.0F - Normal) > Give)
             {
                 if(Normal < 0)

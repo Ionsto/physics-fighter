@@ -31,9 +31,12 @@ namespace Physics_fighter.Hubs
                         {
                             if(player.JointActuators[j][1] == Mid[i])
                             {
-                                if (Game.World.ConnectionList[player.JointActuators[j][0]] != null)
+                                if (player.JointActuators[j][0] != -1)
                                 {
-                                    Game.World.ConnectionList[player.JointActuators[j][0]].Destroy(Game.World);
+                                    if (Game.World.ConnectionList[player.JointActuators[j][0]] != null)
+                                    {
+                                        Game.World.ConnectionList[player.JointActuators[j][0]].Destroy(Game.World);
+                                    }
                                 }
                             }
                         }
@@ -73,7 +76,8 @@ namespace Physics_fighter.Hubs
                             if (player.JointActuators.Last()[0] != -1)
                             {
                                 Game.World.ConnectionList[player.JointActuators.Last()[0]].Render = false;
-                                Game.World.ConnectionList[player.JointActuators.Last()[0]].Force = 0.00001F;
+                                Game.World.ConnectionList[player.JointActuators.Last()[0]].MaxForce = 100.0F;
+                                Game.World.ConnectionList[player.JointActuators.Last()[0]].ForceStep = 5.0F;
                             }
                         }
                     }

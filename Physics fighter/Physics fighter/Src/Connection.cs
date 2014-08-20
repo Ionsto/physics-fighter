@@ -14,8 +14,11 @@ namespace Physics_fighter.Src
         //precalculated
         public float DistanceHeld = 100;
         public float Force = 1;
+        public float ForceStep = 1F;
+        public float MaxForce = 1;
         public float Damadge = 100;
         public float UsedDistance = 0;//The lumped distance variable
+        public float Stiffness = 0.9F;
         public Connection(World world,int a,int b)
         {
             PointA = a;

@@ -20,13 +20,14 @@ namespace Physics_fighter.Src
         public Vector_2d OldPos = new Vector_2d();
         public float Mass = 0;
         public float InverseMass = 0;
+        public bool OnGround = false;
         public int Id = -1;
         public int Player = -1;//Neutral
-        public PointMass(Vector_2d loc)
+        public PointMass(Vector_2d loc,float mass = 10)
         {
             Pos = loc;
             OldPos = loc;
-            SetMass(10);
+            SetMass(mass);
         }
         public void SetMass(float newmass)
         {
@@ -35,33 +36,57 @@ namespace Physics_fighter.Src
         }
         public void Update(World world)
         {
-            Intergrate(world);
             CheckBounds(world);
-            Pos.Y -= 1 * world.DeltaTime;
+            Intergrate(world);
+            Pos.Y -= 2 * world.DeltaTime;
         }
-        public void Intergrate(World world,float friction = 0.5F)
+        public void Intergrate(World world,float friction = 0.9F)
         {
             Vector_2d newOld = Pos;
-            Pos = Pos.Add(Pos.Sub(OldPos).Mult(friction).Mult(world.DeltaTime));
+            Vector_2d Friction = new Vector_2d(friction,friction);//Normal air friction
+            if(OnGround)
+            {
+                Friction.X /= 500.0F;
+            }
+            Pos = Pos.Add(Pos.Sub(OldPos).Mult(Friction).Mult(world.DeltaTime));
             OldPos = newOld;
         }
         public void CheckBounds(World world)
         {
+            bool Affect = false;
+            Vector_2d Displace = new Vector_2d();
             if (Pos.Y < world.BufferSize)
             {
-                Pos.Y += (world.BufferSize - Pos.Y) * world.DeltaTime;
+                Affect = true;
+                Displace.Y = (world.BufferSize - Pos.Y);
+            }
+            if (Math.Abs(Pos.Y - world.BufferSize) < 5 || Pos.Y < world.BufferSize)
+            {
+                OnGround = true;
+            }
+            else
+            {
+                OnGround = false;
             }
             if (Pos.Y > world.Size.Y - world.BufferSize)
             {
-                Pos.Y += ((world.Size.Y - world.BufferSize) - Pos.Y) * world.DeltaTime;
+                Affect = true;
+                Displace.Y = ((world.Size.Y - world.BufferSize) - Pos.Y);
             }
             if (Pos.X < world.BufferSize)
             {
-                Pos.X += (world.BufferSize - Pos.X) * world.DeltaTime;
+                Affect = true;
+                Displace.X = (world.BufferSize - Pos.X);
             }
             if (Pos.X > world.Size.X - world.BufferSize)
             {
-                Pos.X += ((world.Size.X - world.BufferSize) - Pos.X) * world.DeltaTime;
+                Affect = true;
+                Displace.X = ((world.Size.X - world.BufferSize) - Pos.X);
+            }
+            if (Affect)
+            {
+                Vector_2d newOld = Pos;
+                OldPos = newOld.Sub(Displace.Mult(5));
             }
         }
     }
