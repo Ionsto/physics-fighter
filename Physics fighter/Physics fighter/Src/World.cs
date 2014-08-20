@@ -7,8 +7,8 @@ namespace Physics_fighter.Src
 {
     public class World
     {
-        public int MaxFrames = 100;
-        public int DeltaSteps = 20;
+        public int MaxFrames = 200;
+        public int DeltaSteps = 50;
         public float DeltaTime;
         public int ContraintSteps = 50;
         public float DeltaConstraint;
@@ -102,6 +102,13 @@ namespace Physics_fighter.Src
                         if (ConnectionList[i] != null)
                         {
                             ConnectionList[i].Update(this);
+                        }
+                    }
+                    for (int i = 0; i < PointMassList.Length; ++i)
+                    {
+                        if (PointMassList[i] != null)
+                        {
+                            PointMassList[i].CheckBounds(this);
                         }
                     }
                 }

@@ -13,6 +13,7 @@ namespace Physics_fighter.Src
         //2 = Extend
         //2 = Contract 
         public int State = 0;
+        public float ForceApplied = 0;
         public float JointLimit = 90;
         public bool Render = true;
         public List<int> Connected = new List<int>();//List of all the ids of connections
@@ -23,11 +24,12 @@ namespace Physics_fighter.Src
         public bool OnGround = false;
         public int Id = -1;
         public int Player = -1;//Neutral
-        public PointMass(Vector_2d loc,float mass = 10)
+        public PointMass(Vector_2d loc,float mass = 10,float force = 10)
         {
             Pos = loc;
             OldPos = loc;
             SetMass(mass);
+            ForceApplied = force;
         }
         public void SetMass(float newmass)
         {
@@ -46,7 +48,7 @@ namespace Physics_fighter.Src
             Vector_2d Friction = new Vector_2d(friction,friction);//Normal air friction
             if(OnGround)
             {
-                Friction.X /= 500.0F;
+                Friction.X /= 1000.0F;
             }
             Pos = Pos.Add(Pos.Sub(OldPos).Mult(Friction).Mult(world.DeltaTime));
             OldPos = newOld;
