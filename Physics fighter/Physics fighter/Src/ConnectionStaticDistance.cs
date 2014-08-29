@@ -41,8 +41,8 @@ namespace Physics_fighter.Src
             if (Math.Abs(Distance - UsedDistance) > Give)//Give before moving
             {
                 Vector_2d translate = new Vector_2d((float)(Dist.X * Difference), (float)(Dist.Y * Difference));
-                translate.Mult(Force * world.DeltaConstraint * world.DeltaTime);
-                translate.Mult(0.5F);
+                translate = translate.Mult(Force * world.DeltaConstraint);
+                translate = translate.Mult(0.5F);
                 float scalarP1 = (world.PointMassList[PointA].InverseMass / (world.PointMassList[PointA].InverseMass + world.PointMassList[PointB].InverseMass)) * Stiffness;
                 float scalarP2 = Stiffness - scalarP1;
                 world.PointMassList[PointA].Pos = world.PointMassList[PointA].Pos.Add(translate.Mult(scalarP1));

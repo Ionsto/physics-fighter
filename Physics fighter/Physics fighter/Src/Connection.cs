@@ -13,8 +13,8 @@ namespace Physics_fighter.Src
         public int Id = -1;
         //precalculated
         public float DistanceHeld = 100;
-        public float Force = 1;
-        public float ForceStep = 1F;
+        public float Force = 1F;
+        public float ForceStep = 0F;
         public float MaxForce = 1;
         public float Damadge = 100;
         public float UsedDistance = 0;//The lumped distance variable

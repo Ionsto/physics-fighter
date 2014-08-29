@@ -24,16 +24,16 @@ namespace Physics_fighter.Src
             {
                 /*
                      _
-                    \ / 
+                  \ \ / /
                    \_|_/
                      |
                     /_\
                    |   |
-                   |   |    
+                   |   |   
                 */
-                //12 is the minamom for body + 8 is max for wepons
-                //14 for body connectisions 10 for wepon connections
-                World = new World((25+8) * PlayerCount,(60 + 10) * 2 * PlayerCount);
+                //25 is the minamom for body + 8 is max for wepons
+                //80 for body connectisions 10 for wepon connections
+                World = new World((25+8) * PlayerCount,(80 + 10) * 2 * PlayerCount);
             }
         }
     }

@@ -75,6 +75,11 @@ namespace Physics_fighter.Src
                     //Contract
                     UsedDistance = SmallestDistance;
                 }
+                if(Normal == 0)
+                {
+                    world.PointMassList[PointA].Pos.X += 1;
+                    world.PointMassList[PointB].Pos.X -= 1;
+                }
                 base.ResolveConstraint(world);
             }
         }

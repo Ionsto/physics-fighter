@@ -7,6 +7,7 @@ namespace Physics_fighter.Src
 {
     public class World
     {
+        public int FrameStep = 10;
         public int MaxFrames = 200;
         public int DeltaSteps = 50;
         public float DeltaTime;
@@ -34,11 +35,8 @@ namespace Physics_fighter.Src
             {
                 ConnectionList[i] = null;
             }
-            SpawnLocations.Add(new Vector_2d(50, 50));
-            SpawnLocations.Add(new Vector_2d(250, 50));
-            SpawnLocations.Add(new Vector_2d(500, 50));
-            //new SpawnPlayer(this, new Vector_2d(100, 50));
-            //new SpawnPlayer(this, new Vector_2d(400, 50));
+            SpawnLocations.Add(new Vector_2d(100, 50));
+            SpawnLocations.Add(new Vector_2d(210, 50));
             DeltaTime = 1.0F / DeltaSteps;
             DeltaConstraint = 1.0F / ContraintSteps;
         }
@@ -95,7 +93,7 @@ namespace Physics_fighter.Src
                         PointMassList[i].Update(this);
                     }
                 }
-                //Collision();
+                Collision();
                 for (int j = 0; j < ContraintSteps; ++j)
                 {
                     for (int i = 0; i < ConnectionList.Length; ++i)
@@ -127,14 +125,18 @@ namespace Physics_fighter.Src
                         if (ConnectionList[j] != null)
                         {
                             //Do collision
-                            if (get_line_intersection(PointMassList[ConnectionList[i].PointA].Pos,PointMassList[ConnectionList[i].PointB].Pos,PointMassList[ConnectionList[j].PointA].Pos,PointMassList[ConnectionList[j].PointB].Pos))
+                            if (get_line_intersection(PointMassList[ConnectionList[i].PointA].Pos,PointMassList[ConnectionList[i].PointB].Pos,PointMassList[ConnectionList[j].PointA].Pos,PointMassList[ConnectionList[j].PointB].Pos) != null)
                             {
                                 PointMass[] Points = new PointMass[4];
                                 Points[0] = PointMassList[ConnectionList[i].PointA];
                                 Points[1] = PointMassList[ConnectionList[i].PointB];
                                 Points[2] = PointMassList[ConnectionList[j].PointA];
                                 Points[3] = PointMassList[ConnectionList[j].PointB];
-                                if (ConnectedAtoB(Points[0], PointMassList[2]) && ConnectedAtoB(Points[2], PointMassList[0]))
+                                VelocityColl(Points[0], ConnectionList[j]);
+                                VelocityColl(Points[1], ConnectionList[j]);
+                                VelocityColl(Points[2], ConnectionList[i]);
+                                VelocityColl(Points[3], ConnectionList[i]);
+                                /*if (ConnectedAtoB(Points[0], PointMassList[2]) && ConnectedAtoB(Points[2], PointMassList[0]))
                                 {
                                     if (ConnectedAtoB(Points[1], PointMassList[3]) && ConnectedAtoB(Points[3], PointMassList[1]))
                                     {
@@ -142,8 +144,9 @@ namespace Physics_fighter.Src
                                         Coll(Points[0], Points[3]);
                                         Coll(Points[1], Points[2]);
                                         Coll(Points[1], Points[3]);
+
                                     }
-                                }
+                                }*/
                             }
                         }
                     }
@@ -167,10 +170,29 @@ namespace Physics_fighter.Src
             float InputForce = 1.0F/(float)Math.Sqrt(diff.Dot(diff));
             diff.Div(InputForce);
             diff.Mult(0.5F);
-            a.Pos = a.Pos.Add(diff);
-            b.Pos = b.Pos.Sub(diff);
+            a.Accerate(diff,this);
+            b.Accerate(diff.Inverted(),this);
         }
-        public bool get_line_intersection(Vector_2d p0, Vector_2d p1, Vector_2d p2, Vector_2d p3)
+        public void VelocityColl(PointMass A,Connection B)
+        {
+            Vector_2d pos = get_line_intersection(A.Pos, A.OldPos,  PointMassList[B.PointA].Pos, PointMassList[B.PointB].Pos);
+            if (pos != null)
+            {
+                float COR = 0.98F;//Coefficent of restetution
+                Vector_2d ConB = PointMassList[B.PointA].Pos.Sub(PointMassList[B.PointB].Pos);
+                Vector_2d ConBPerpNormal = ConB.Perpendicular().Div((float)Math.Sqrt(ConB.Dot(ConB)));
+                Vector_2d Velocity = A.OldPos.Sub(A.Pos);
+                Vector_2d newVelocity = PointMassList[B.PointA].OldPos.Sub(PointMassList[B.PointA].Pos);
+                newVelocity = newVelocity.Add(PointMassList[B.PointB].OldPos.Sub(PointMassList[B.PointB].Pos));
+                //newVelocity = newVelocity.Sub(Velocity);
+                float Distribution = (float)Math.Sqrt(pos.Sub(PointMassList[B.PointA].Pos).Dot(pos.Sub(PointMassList[B.PointA].Pos))) / B.UsedDistance;
+
+                A.Pos = A.OldPos.Add(newVelocity.Mult(COR));
+                PointMassList[B.PointA].Pos = PointMassList[B.PointA].OldPos.Add(Velocity.Mult(1 - Distribution));
+                PointMassList[B.PointB].Pos = PointMassList[B.PointB].OldPos.Add(Velocity.Mult(Distribution));
+            }
+        }
+        public Vector_2d get_line_intersection(Vector_2d p0, Vector_2d p1, Vector_2d p2, Vector_2d p3)
         {
             Vector_2d s1 = new Vector_2d();
             Vector_2d s2 = new Vector_2d();
@@ -183,15 +205,10 @@ namespace Physics_fighter.Src
 
             if (s > 0 && s < 1 && t > 0 && t < 1)
             {
-                // Collision detected
-                /*if (i.x != NULL)
-                    *i.x = p0.x + (t * s1.x);
-                if (i.y != NULL)
-                    *i.y = p0.y + (t * s1.y);*/
-                return true;
+                return new Vector_2d(p0.X + (t * s1.X), p0.Y + (t * s1.Y));
             }
 
-            return false; // No collision
+            return null; // No collision
         }
     }
 }

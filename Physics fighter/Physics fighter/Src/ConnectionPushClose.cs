@@ -42,12 +42,13 @@ namespace Physics_fighter.Src
             if (Difference > 0)
             {
                 Vector_2d translate = new Vector_2d((float)(Dist.X * Difference), (float)(Dist.Y * Difference));
-                translate.Mult(Force);
-                translate.Mult(0.5F).Mult(world.DeltaConstraint);//.Mult(world.DeltaTime);
+                translate = translate.Mult(Force);
+                translate = translate.Mult(0.5F).Mult(world.DeltaConstraint);//.Mult(world.DeltaTime);
                 float scalarP1 = (world.PointMassList[PointA].InverseMass / (world.PointMassList[PointA].InverseMass + world.PointMassList[PointB].InverseMass)) * Stiffness;
                 float scalarP2 = Stiffness - scalarP1;
                 world.PointMassList[PointA].Pos = world.PointMassList[PointA].Pos.Add(translate.Mult(scalarP1));
                 world.PointMassList[PointB].Pos = world.PointMassList[PointB].Pos.Sub(translate.Mult(scalarP2));
+            
             }
         }
     }

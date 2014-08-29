@@ -77,7 +77,7 @@ namespace Physics_fighter.Hubs
                             {
                                 Game.World.ConnectionList[player.JointActuators.Last()[0]].Render = false;
                                 //Game.World.ConnectionList[player.JointActuators.Last()[0]].MaxForce = Game.World.PointMassList[Mid[i]].ForceApplied;
-                                Game.World.ConnectionList[player.JointActuators.Last()[0]].Force = 1.0F/6000.0F;//Move takes 30 frames
+                                Game.World.ConnectionList[player.JointActuators.Last()[0]].Force = 2*Game.World.DeltaTime;//Move takes 30 frames
                                 //Game.World.ConnectionList[player.JointActuators.Last()[0]].ForceStep = 1F;
                             }
                         }
@@ -86,7 +86,7 @@ namespace Physics_fighter.Hubs
                 Clients.All.setPlayerList(Game.World.ReadyList);
                 if (Game.World.ReadyList.Count == Game.World.PlayerNameList.Count)
                 {
-                    int Count = Math.Min(30,(Game.World.MaxFrames-1) - Game.World.Frame);
+                    int Count = Math.Min(Game.World.FrameStep,(Game.World.MaxFrames-1) - Game.World.Frame);
                     for (int i = 0; i < Count; ++i)
                     {
                         Game.World.Update();

@@ -13,12 +13,13 @@ namespace Physics_fighter.Src
         //2 = Extend
         //2 = Contract 
         public int State = 0;
-        public float ForceApplied = 0;
+        public float ForceApplied = 1;
         public float JointLimit = 90;
         public bool Render = true;
         public List<int> Connected = new List<int>();//List of all the ids of connections
         public Vector_2d Pos = new Vector_2d();
         public Vector_2d OldPos = new Vector_2d();
+        public Vector_2d Acceleration = new Vector_2d();
         public float Mass = 0;
         public float InverseMass = 0;
         public bool OnGround = false;
@@ -40,18 +41,27 @@ namespace Physics_fighter.Src
         {
             CheckBounds(world);
             Intergrate(world);
-            Pos.Y -= 5 * world.DeltaTime;
+            Accerate(new Vector_2d(0,-0.5F),world);
         }
-        public void Intergrate(World world,float friction = 0.999999F)
+        public void Accerate(Vector_2d vec,World world)
         {
+            Acceleration = Acceleration.Add(vec);
+        }
+        public void Intergrate(World world,float friction = 0.000001F)
+        {
+            friction /= InverseMass;
             Vector_2d newOld = Pos;
-            Vector_2d Friction = new Vector_2d(1,1).Mult(friction);//Normal air friction
-            if(OnGround)
+            Vector_2d Friction = new Vector_2d(2 - friction, 2 - friction);//Normal air friction
+            Vector_2d FrictionOld = new Vector_2d(1 - friction, 1 - friction);//Normal air friction
+            if (OnGround)
             {
-                //Friction.X = 0.2F;
-            }
-            Pos = Pos.Add(Pos.Sub(OldPos).Mult(Friction).Mult(world.DeltaTime));
+                //Friction.X = 1 + friction;
+                //FrictionOld.X = friction;
+            } 
+            Pos = Pos.Mult(Friction).Sub(OldPos.Mult(FrictionOld));
+            Pos = Pos.Add(Acceleration.Mult(world.DeltaTime * world.DeltaTime));
             OldPos = newOld;
+            Acceleration = new Vector_2d(0,0);
         }
         public void CheckBounds(World world)
         {
@@ -87,7 +97,7 @@ namespace Physics_fighter.Src
             }
             if (Affect)
             {
-                Vector_2d newOld = Pos.Add(Displace.Mult(2));
+                Vector_2d newOld = Pos.Add(Displace.Mult(2F));
                 Pos = OldPos;
                 OldPos = newOld;
             }
