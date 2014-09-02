@@ -86,33 +86,42 @@ namespace Physics_fighter.Src
         {
             for (int step = 0; step < DeltaSteps; ++step)
             {
+                SolveConstraints();
+                UpdatePointMasses();
+                Collision();
+                SolveConstraints();
+            }
+            ++Frame;
+        }
+        public void UpdatePointMasses()
+        {
+            for (int i = 0; i < PointMassList.Length; ++i)
+            {
+                if (PointMassList[i] != null)
+                {
+                    PointMassList[i].Update(this);
+                }
+            }
+        }
+        public void SolveConstraints()
+        {
+            for (int j = 0; j < ContraintSteps; ++j)
+            {
+                for (int i = 0; i < ConnectionList.Length; ++i)
+                {
+                    if (ConnectionList[i] != null)
+                    {
+                        ConnectionList[i].Update(this);
+                    }
+                }
                 for (int i = 0; i < PointMassList.Length; ++i)
                 {
                     if (PointMassList[i] != null)
                     {
-                        PointMassList[i].Update(this);
-                    }
-                }
-                Collision();
-                for (int j = 0; j < ContraintSteps; ++j)
-                {
-                    for (int i = 0; i < ConnectionList.Length; ++i)
-                    {
-                        if (ConnectionList[i] != null)
-                        {
-                            ConnectionList[i].Update(this);
-                        }
-                    }
-                    for (int i = 0; i < PointMassList.Length; ++i)
-                    {
-                        if (PointMassList[i] != null)
-                        {
-                            PointMassList[i].CheckBounds(this);
-                        }
+                        PointMassList[i].CheckBounds(this);
                     }
                 }
             }
-            ++Frame;
         }
         public void Collision()
         {
