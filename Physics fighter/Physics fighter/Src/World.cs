@@ -8,10 +8,10 @@ namespace Physics_fighter.Src
     public class World
     {
         public int FrameStep = 10;
-        public int MaxFrames = 200;
+        public int MaxFrames = 100;
         public int DeltaSteps = 50;
         public float DeltaTime;
-        public int ContraintSteps = 50;
+        public int ContraintSteps = 10;
         public float DeltaConstraint;
         public float BufferSize = 10;
         public Vector_2d Size = new Vector_2d(500,500);

@@ -41,13 +41,13 @@ namespace Physics_fighter.Src
         {
             CheckBounds(world);
             Intergrate(world);
-            Accerate(new Vector_2d(0,-0.5F),world);
+            Accerate(new Vector_2d(0,-0.1F),world);
         }
         public void Accerate(Vector_2d vec,World world)
         {
             Acceleration = Acceleration.Add(vec);
         }
-        public void Intergrate(World world,float friction = 0.000001F)
+        public void Intergrate(World world,float friction = 0)
         {
             friction /= InverseMass;
             Vector_2d newOld = Pos;

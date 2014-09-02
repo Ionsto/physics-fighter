@@ -45,6 +45,8 @@ namespace Physics_fighter.Src
                 translate = translate.Mult(0.5F);
                 float scalarP1 = (world.PointMassList[PointA].InverseMass / (world.PointMassList[PointA].InverseMass + world.PointMassList[PointB].InverseMass)) * Stiffness;
                 float scalarP2 = Stiffness - scalarP1;
+                //world.PointMassList[PointA].Accerate(translate.Mult(scalarP1),world);
+                //world.PointMassList[PointB].Accerate(translate.Mult(scalarP2).Inverted(), world);
                 world.PointMassList[PointA].Pos = world.PointMassList[PointA].Pos.Add(translate.Mult(scalarP1));
                 world.PointMassList[PointB].Pos = world.PointMassList[PointB].Pos.Sub(translate.Mult(scalarP2));
             }

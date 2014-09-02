@@ -11,8 +11,8 @@ namespace Physics_fighter.Src
         {
             //Lergs
             float LegWidth = 30;
-            int LowerLegA = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X + LegWidth, loc_floor.Y)));
-            int LowerLegB = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X - LegWidth, loc_floor.Y)));
+            int LowerLegA = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X + LegWidth, loc_floor.Y),50));
+            int LowerLegB = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X - LegWidth, loc_floor.Y),50));
             float LegTaper = 6;
             float LegHeight = 60;
             int MidLegA = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X + LegWidth - LegTaper, loc_floor.Y + (LegHeight / 2))));
@@ -83,12 +83,13 @@ namespace Physics_fighter.Src
             int ArmLowerConA = world.AddConnection(new ConnectionStaticDistance(world, MidArmA, LowerArmA));
             int ArmLowerConB = world.AddConnection(new ConnectionStaticDistance(world, MidArmB, LowerArmB));
             
-            world.AddConnection(new ConnectionPushClose(world, HigherLegA, MidBody, 90, HipConA, LowerBodyCon));
+            /*world.AddConnection(new ConnectionPushClose(world, HigherLegA, MidBody, 90, HipConA, LowerBodyCon));
             world.AddConnection(new ConnectionPushClose(world, HigherLegB, MidBody, 90, HipConB, LowerBodyCon));
             world.AddConnection(new ConnectionPushClose(world, LowerHip, MidBody, 90, HipConF, LowerBodyCon));
             world.AddConnection(new ConnectionPushClose(world, LowerBody, HigherBody, 90, LowerBodyCon, HigherBodyCon));
 
             world.AddConnection(new ConnectionPushClose(world, MidBody, LowerNeck, 90, HigherBodyCon, ShoulderConC));
+            */
             //world.AddConnection(new ConnectionPushClose(world, HigherLegB, MidBody, 90, HipConB, LowerBodyCon));
             if (player != null)
             {

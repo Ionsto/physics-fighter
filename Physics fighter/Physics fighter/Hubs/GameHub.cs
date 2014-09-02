@@ -23,6 +23,8 @@ namespace Physics_fighter.Hubs
                 Game.World.ReadyList.Add(Name);
                 for (int i = 0; i < Mid.Length; ++i)
                 {
+                    //Random rnd = new Random();
+                    //State[i] = (int)Math.Floor((rnd.NextDouble() * 5));
                     if (Game.World.PointMassList[Mid[i]].State != State[i])
                     {
                         Game.World.PointMassList[Mid[i]].State = State[i];
@@ -77,7 +79,9 @@ namespace Physics_fighter.Hubs
                             {
                                 Game.World.ConnectionList[player.JointActuators.Last()[0]].Render = false;
                                 //Game.World.ConnectionList[player.JointActuators.Last()[0]].MaxForce = Game.World.PointMassList[Mid[i]].ForceApplied;
-                                Game.World.ConnectionList[player.JointActuators.Last()[0]].Force = 2*Game.World.DeltaTime;//Move takes 30 frames
+                                Game.World.ConnectionList[player.JointActuators.Last()[0]].Force = 1F;// Game.World.DeltaTime;//
+                                Game.World.ConnectionList[player.JointActuators.Last()[0]].Stiffness = 0.8F;//
+
                                 //Game.World.ConnectionList[player.JointActuators.Last()[0]].ForceStep = 1F;
                             }
                         }
