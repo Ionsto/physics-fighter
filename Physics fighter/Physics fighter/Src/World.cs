@@ -86,7 +86,7 @@ namespace Physics_fighter.Src
         {
             for (int step = 0; step < DeltaSteps; ++step)
             {
-                SolveConstraints();
+                //SolveConstraints();
                 UpdatePointMasses();
                 Collision();
                 SolveConstraints();

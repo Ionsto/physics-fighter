@@ -80,7 +80,7 @@ namespace Physics_fighter.Hubs
                                 Game.World.ConnectionList[player.JointActuators.Last()[0]].Render = false;
                                 //Game.World.ConnectionList[player.JointActuators.Last()[0]].MaxForce = Game.World.PointMassList[Mid[i]].ForceApplied;
                                 Game.World.ConnectionList[player.JointActuators.Last()[0]].Force = 1F;// Game.World.DeltaTime;//
-                                Game.World.ConnectionList[player.JointActuators.Last()[0]].Stiffness = 0.8F;//
+                                Game.World.ConnectionList[player.JointActuators.Last()[0]].Stiffness = 0.1F;//
 
                                 //Game.World.ConnectionList[player.JointActuators.Last()[0]].ForceStep = 1F;
                             }
