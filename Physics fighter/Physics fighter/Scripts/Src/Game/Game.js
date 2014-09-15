@@ -25,6 +25,8 @@
         //2 = Extend
         //3 = Contract ClockWise
         //4 = Contract Counter ClockWise
+        //5 = hand release
+        //6 = hand grab
         this.State = state;
     };
     function Connection(xa, ya, xb, yb, colour) {
@@ -202,15 +204,23 @@
             if(InteractJoint != -1)
             {
                 if (event.which == 97) {//A
-                    if(--Joints[InteractJoint].State < 0)
-                    {
+                    if (Joints[InteractJoint].State == 0) {
                         Joints[InteractJoint].State = 4;
+                    } else if (Joints[InteractJoint].State == 5) {
+                        Joints[InteractJoint].State = 6;
+                    } else
+                    {
+                        --Joints[InteractJoint].State;
                     }
                 }
                 if (event.which == 100) {//D
-                    if (++Joints[InteractJoint].State > 4)
-                    {
+                    if (Joints[InteractJoint].State == 4) {
                         Joints[InteractJoint].State = 0;
+                    } else if (Joints[InteractJoint].State == 6) {
+                        Joints[InteractJoint].State = 5;
+                    }
+                    else {
+                        ++Joints[InteractJoint].State;
                     }
                 }
                 SetJointOutput(InteractJoint);

@@ -73,14 +73,18 @@ namespace Physics_fighter.Hubs
                         {
                             player.JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionRotateToDirection(Game.World, A[i], Mid[i], B[i], true)), Mid[i] });
                         }
-                        if(State[i] != 0)
+                        if (State[i] == 6)
+                        {
+                            player.JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionRotateToDirection(Game.World, A[i], Mid[i], B[i], true)), Mid[i] });
+                        }
+                        if(State[i] != 0 && State[i] != 5 && State[i] != 6)
                         {
                             if (player.JointActuators.Last()[0] != -1)
                             {
                                 Game.World.ConnectionList[player.JointActuators.Last()[0]].Render = false;
                                 //Game.World.ConnectionList[player.JointActuators.Last()[0]].MaxForce = Game.World.PointMassList[Mid[i]].ForceApplied;
-                                Game.World.ConnectionList[player.JointActuators.Last()[0]].Force = 1F;// Game.World.DeltaTime;//
-                                Game.World.ConnectionList[player.JointActuators.Last()[0]].Stiffness = 0.1F;//
+                                //Game.World.ConnectionList[player.JointActuators.Last()[0]].Force = 1F;// Game.World.DeltaTime;//
+                                Game.World.ConnectionList[player.JointActuators.Last()[0]].Stiffness = 0.01F;//
 
                                 //Game.World.ConnectionList[player.JointActuators.Last()[0]].ForceStep = 1F;
                             }
