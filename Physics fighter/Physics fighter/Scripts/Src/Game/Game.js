@@ -183,7 +183,7 @@
                 var IsRel = true;
                 for(var i = 0;i < Joints.length;++i)
                 {
-                    if(Joints[i].State != 0)
+                    if(Joints[i].State != 0 && Joints[i].State != 5)
                     {
                         IsRel = false;
                     }
@@ -191,13 +191,23 @@
                 if(IsRel)
                 {
                     for (var i = 0; i < Joints.length; ++i) {
-                        Joints[i].State = 1;
+                        if (Joints[i].State == 5) {
+                            Joints[i].State = 6;
+                        }
+                        else {
+                            Joints[i].State = 1;
+                        }
                     }
                 }
                 else
                 {
                     for (var i = 0; i < Joints.length; ++i) {
-                        Joints[i].State = 0;
+                        if (Joints[i].State == 6) {
+                            Joints[i].State = 5;
+                        }
+                        else {
+                            Joints[i].State = 0;
+                        }
                     }
                 }
             }
@@ -239,6 +249,10 @@
             Message = "Contract Clockwise";
         } if (Joints[InteractJoint].State == 4) {
             Message = "Contract CounterClockwise";
+        } if (Joints[InteractJoint].State == 5) {
+            Message = "Hand Relaxed";
+        } if (Joints[InteractJoint].State == 6) {
+            Message = "Hand Grab";
         }
         document.getElementById("State").innerHTML = "State:" + Message;
 

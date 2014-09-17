@@ -105,8 +105,12 @@ namespace Physics_fighter.Src
 
                 player.JointsId.Add(new int[] { HigherBody, ShoulderA, MidArmA });
                 player.JointsId.Add(new int[] { HigherBody, ShoulderB, MidArmB });
-                player.JointsId.Add(new int[] { ShoulderA, MidArmA , LowerArmA});
+                player.JointsId.Add(new int[] { ShoulderA, MidArmA, LowerArmA });
                 player.JointsId.Add(new int[] { ShoulderB, MidArmB, LowerArmB });
+                player.JointsId.Add(new int[] { MidArmA, LowerArmA,-1 });
+                world.PointMassList[LowerArmA].State = 5;
+                player.JointsId.Add(new int[] { MidArmB, LowerArmB, -1 });
+                world.PointMassList[LowerArmB].State = 5;
             }
         }
     }

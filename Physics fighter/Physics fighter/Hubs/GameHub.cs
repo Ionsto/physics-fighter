@@ -129,11 +129,14 @@ namespace Physics_fighter.Hubs
                 bool JointNull = false;
                 for(int j = 0;j < 3;++j)
                 {
-                    if(Game.World.PointMassList[player.JointsId[i][j]] == null)
+                    if (player.JointsId[i][j] != -1)
                     {
-                        player.JointsId.RemoveAt(i);
-                        JointNull = true;;
-                        break;
+                        if(Game.World.PointMassList[player.JointsId[i][j]] == null)
+                        {
+                            player.JointsId.RemoveAt(i);
+                            JointNull = true;;
+                            break;
+                        }
                     }
                 }
                 if (!JointNull)

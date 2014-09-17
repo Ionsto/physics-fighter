@@ -203,7 +203,10 @@ namespace Physics_fighter.Src
                 if(A.State == 5)
                 {
                     PlayerList[A.Player].JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionStaticDistance(Game.World, A.Id, B.PointA)), A.Id });
+                    Game.World.ConnectionList[PlayerList[A.Player].JointActuators.Last()[0]].Render = false;
                     PlayerList[A.Player].JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionStaticDistance(Game.World, A.Id, B.PointB)), A.Id });
+                    Game.World.ConnectionList[PlayerList[A.Player].JointActuators.Last()[0]].Render = false;
+                    PointMassList[A.Id].State = 6;
                 }
             }
         }
