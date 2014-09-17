@@ -11,7 +11,9 @@ namespace Physics_fighter.Src
         //0 = Relax
         //1 = Hold
         //2 = Extend
-        //2 = Contract 
+        //3 = Contract 
+        //5 = Relax grip
+        //6 = Grab
         public int State = 0;
         public float ForceApplied = 1;
         public float JointLimit = 90;

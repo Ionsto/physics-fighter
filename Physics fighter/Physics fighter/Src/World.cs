@@ -196,9 +196,15 @@ namespace Physics_fighter.Src
                 //newVelocity = newVelocity.Sub(Velocity);
                 float Distribution = (float)Math.Sqrt(pos.Sub(PointMassList[B.PointA].Pos).Dot(pos.Sub(PointMassList[B.PointA].Pos))) / B.UsedDistance;
 
+
                 A.Pos = A.OldPos.Add(newVelocity.Mult(COR));
                 PointMassList[B.PointA].Pos = PointMassList[B.PointA].OldPos.Add(Velocity.Mult(1 - Distribution));
                 PointMassList[B.PointB].Pos = PointMassList[B.PointB].OldPos.Add(Velocity.Mult(Distribution));
+                if(A.State == 5)
+                {
+                    PlayerList[A.Player].JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionStaticDistance(Game.World, A.Id, B.PointA)), A.Id });
+                    PlayerList[A.Player].JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionStaticDistance(Game.World, A.Id, B.PointB)), A.Id });
+                }
             }
         }
         public Vector_2d get_line_intersection(Vector_2d p0, Vector_2d p1, Vector_2d p2, Vector_2d p3)

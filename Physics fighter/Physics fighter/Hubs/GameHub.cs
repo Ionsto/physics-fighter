@@ -73,9 +73,13 @@ namespace Physics_fighter.Hubs
                         {
                             player.JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionRotateToDirection(Game.World, A[i], Mid[i], B[i], true)), Mid[i] });
                         }
+                        if(State[i] == 5)
+                        {
+
+                        }
                         if (State[i] == 6)
                         {
-                            player.JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionRotateToDirection(Game.World, A[i], Mid[i], B[i], true)), Mid[i] });
+
                         }
                         if(State[i] != 0 && State[i] != 5 && State[i] != 6)
                         {
