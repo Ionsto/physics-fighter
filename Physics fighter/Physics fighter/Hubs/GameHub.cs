@@ -106,6 +106,12 @@ namespace Physics_fighter.Hubs
                     }
                     Game.World.ReadyList.Clear();
                     Clients.All.renderFrameSet(Game.World.Frame - Count, Count);
+                    List<float> Scores = new List<float>();
+                    foreach (Player player in Game.World.PlayerList)
+                    {
+                        Scores.Add(player.Score);
+                    }
+                    Clients.All.showScores(Game.World.PlayerNameList, Scores);
                 }
                 Clients.All.setPlayerList(Game.World.ReadyList);
             }

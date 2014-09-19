@@ -51,7 +51,14 @@
         document.getElementById("Replay").onclick = DoReplay;
     };
     game.client.setObjectFrame = function SetObjectFrame(id, frame, posxa, posya, posxb, posyb, colour) {
-        Frames[frame][id] = new Connection(500-posxa, 500-posya, 500-posxb, 500-posyb, colour);
+        Frames[frame][id] = new Connection(500 - posxa, 500 - posya, 500 - posxb, 500 - posyb, colour);
+    };
+    game.client.showScores = function showScores(players, score) {
+        document.getElementById("PlayerScores").innerHTML = "";
+        for (var i = 0; i < players.length; ++i)
+        {
+            document.getElementById("PlayerScores").innerHTML += players[i] + ":" + score[i].toString() + "<br\>";
+        }
     };
     game.client.setPlayerList = function (names)
     {
