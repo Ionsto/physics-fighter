@@ -75,7 +75,7 @@ namespace Physics_fighter.Hubs
                         }
                         if(State[i] == 5)
                         {
-
+                            Game.World.PointMassList[Mid[i]].Grabbed = false;
                         }
                         if (State[i] == 6)
                         {

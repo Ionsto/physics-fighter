@@ -200,13 +200,18 @@ namespace Physics_fighter.Src
                 A.Pos = A.OldPos.Add(newVelocity.Mult(COR));
                 PointMassList[B.PointA].Pos = PointMassList[B.PointA].OldPos.Add(Velocity.Mult(1 - Distribution));
                 PointMassList[B.PointB].Pos = PointMassList[B.PointB].OldPos.Add(Velocity.Mult(Distribution));
-                if(A.State == 5)
+                if(A.State == 6 && !A.Grabbed)
                 {
-                    PlayerList[A.Player].JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionStaticDistance(Game.World, A.Id, B.PointA)), A.Id });
-                    Game.World.ConnectionList[PlayerList[A.Player].JointActuators.Last()[0]].Render = false;
-                    PlayerList[A.Player].JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionStaticDistance(Game.World, A.Id, B.PointB)), A.Id });
-                    Game.World.ConnectionList[PlayerList[A.Player].JointActuators.Last()[0]].Render = false;
-                    PointMassList[A.Id].State = 6;
+                    int conA = Game.World.AddConnection(new ConnectionStaticDistance(Game.World, A.Id, B.PointA));
+                    int conB = Game.World.AddConnection(new ConnectionStaticDistance(Game.World, A.Id, B.PointB));
+                    Game.World.ConnectionList[conA].Render = false;
+                    Game.World.ConnectionList[conB].Render = false;
+                    PointMassList[A.Id].Grabbed = true;
+                    if (A.Player != -1)
+                    {
+                        PlayerList[A.Player].JointActuators.Add(new int[] { conA, A.Id });
+                        PlayerList[A.Player].JointActuators.Add(new int[] { conB, A.Id });
+                    }
                 }
             }
         }

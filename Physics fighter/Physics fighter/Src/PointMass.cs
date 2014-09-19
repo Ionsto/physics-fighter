@@ -27,6 +27,7 @@ namespace Physics_fighter.Src
         public bool OnGround = false;
         public int Id = -1;
         public int Player = -1;//Neutral
+        public bool Grabbed = false;
         public PointMass(Vector_2d loc,float mass = 10,float force = 10)
         {
             Pos = loc;
@@ -43,7 +44,7 @@ namespace Physics_fighter.Src
         {
             CheckBounds(world);
             Intergrate(world);
-            Accerate(new Vector_2d(0,-0.1F),world);
+            Accerate(new Vector_2d(0,-0.2F),world);
         }
         public void Accerate(Vector_2d vec,World world)
         {
