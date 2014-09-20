@@ -23,6 +23,7 @@ namespace Physics_fighter.Src
         public Vector_2d OldPos = new Vector_2d();
         public Vector_2d Acceleration = new Vector_2d();
         public float Mass = 0;
+        public float DamadgeMulti = 1;
         public float InverseMass = 0;
         public bool OnGround = false;
         public int Id = -1;

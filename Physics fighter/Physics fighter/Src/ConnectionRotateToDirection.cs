@@ -56,7 +56,9 @@ namespace Physics_fighter.Src
         }
         public override void ResolveConstraint(World world)
         {
+            
             Vector_2d Avec = world.PointMassList[PointMid].Pos.Sub(world.PointMassList[PointA].Pos).Normal().Perpendicular();
+            //Whats it with?
             if(Direction){Avec.Invert();}
             Vector_2d Bvec = world.PointMassList[PointB].Pos.Sub(world.PointMassList[PointMid].Pos).Normal();
             float Dot = Avec.Dot(Bvec);

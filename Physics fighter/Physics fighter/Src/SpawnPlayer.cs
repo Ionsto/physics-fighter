@@ -33,10 +33,10 @@ namespace Physics_fighter.Src
             int HipConD = world.AddConnection(new ConnectionStaticDistance(world, HigherLegB, LowerHip));
             int HipConE = world.AddConnection(new ConnectionStaticDistance(world, HigherLegA, HigherLegB));
             int HipConF = world.AddConnection(new ConnectionStaticDistance(world, LowerBody, LowerHip));
-            world.AddConnection(new ConnectionPushClose(world, LowerLegA, HigherLegA, 90, LowerLegACon, HigherLegACon));
-            world.AddConnection(new ConnectionPushClose(world, LowerLegB, HigherLegB, 90, LowerLegBCon, HigherLegBCon));
-            world.AddConnection(new ConnectionPushClose(world, LowerBody, MidLegA, 90, HipConA, HigherLegACon));
-            world.AddConnection(new ConnectionPushClose(world, LowerBody, MidLegB, 90, HipConB, HigherLegBCon));
+            //world.AddConnection(new ConnectionPushClose(world, LowerLegA, HigherLegA, 90, LowerLegACon, HigherLegACon));
+            //world.AddConnection(new ConnectionPushClose(world, LowerLegB, HigherLegB, 90, LowerLegBCon, HigherLegBCon));
+            //world.AddConnection(new ConnectionPushClose(world, LowerBody, MidLegA, 90, HipConA, HigherLegACon));
+            //world.AddConnection(new ConnectionPushClose(world, LowerBody, MidLegB, 90, HipConB, HigherLegBCon));
             //Body
             float BodyHeight = 30;
             int MidBody = world.AddPointMass(new PointMass(new Vector_2d(loc_floor.X, loc_floor.Y + LegHeight + HipSize + (BodyHeight / 2))));
@@ -83,14 +83,7 @@ namespace Physics_fighter.Src
             int ArmLowerConA = world.AddConnection(new ConnectionStaticDistance(world, MidArmA, LowerArmA));
             int ArmLowerConB = world.AddConnection(new ConnectionStaticDistance(world, MidArmB, LowerArmB));
             
-            /*world.AddConnection(new ConnectionPushClose(world, HigherLegA, MidBody, 90, HipConA, LowerBodyCon));
-            world.AddConnection(new ConnectionPushClose(world, HigherLegB, MidBody, 90, HipConB, LowerBodyCon));
-            world.AddConnection(new ConnectionPushClose(world, LowerHip, MidBody, 90, HipConF, LowerBodyCon));
-            world.AddConnection(new ConnectionPushClose(world, LowerBody, HigherBody, 90, LowerBodyCon, HigherBodyCon));
 
-            world.AddConnection(new ConnectionPushClose(world, MidBody, LowerNeck, 90, HigherBodyCon, ShoulderConC));
-            */
-            //world.AddConnection(new ConnectionPushClose(world, HigherLegB, MidBody, 90, HipConB, LowerBodyCon));
             if (player != null)
             {
                 player.JointsId.Add(new int[] { HigherLegA, MidLegA, LowerLegA });
@@ -111,6 +104,59 @@ namespace Physics_fighter.Src
                 world.PointMassList[LowerArmA].State = 5;
                 player.JointsId.Add(new int[] { MidArmB, LowerArmB, -1 });
                 world.PointMassList[LowerArmB].State = 5;
+
+                player.PointMasses.Add(LowerLegA);
+                player.PointMasses.Add(LowerLegB);
+                player.PointMasses.Add(HigherLegA);
+                player.PointMasses.Add(HigherLegB);
+                player.PointMasses.Add(LowerBody);
+                player.PointMasses.Add(LowerHip);
+                player.Connctions.Add(LowerLegACon);
+                player.Connctions.Add(LowerLegBCon);
+                player.Connctions.Add(HigherLegACon);
+                player.Connctions.Add(HigherLegBCon);
+                player.Connctions.Add(HipConA);
+                player.Connctions.Add(HipConB);
+                player.Connctions.Add(HipConC);
+                player.Connctions.Add(HipConD);
+                player.Connctions.Add(HipConE);
+                player.Connctions.Add(HipConF);
+
+                //Body/head
+                player.PointMasses.Add(MidBody);
+                player.PointMasses.Add(HigherBody);
+                player.PointMasses.Add(ShoulderA);
+                player.PointMasses.Add(ShoulderB);
+                player.PointMasses.Add(LowerNeck);
+                player.PointMasses.Add(HigherNeck);
+                player.PointMasses.Add(TopHead);
+                player.PointMasses.Add(HeadA);
+                player.PointMasses.Add(HeadB);
+
+                //Arms
+                player.PointMasses.Add(MidArmA);
+                player.PointMasses.Add(MidArmB);
+                player.PointMasses.Add(LowerArmA);
+                player.PointMasses.Add(LowerArmB);
+                player.Connctions.Add(LowerBodyCon);
+                player.Connctions.Add(HigherBodyCon);
+                player.Connctions.Add(ShoulderConA);
+                player.Connctions.Add(ShoulderConB);
+                player.Connctions.Add(ShoulderConC);
+                player.Connctions.Add(ShoulderConE);
+                player.Connctions.Add(ShoulderConF);
+                player.Connctions.Add(ShoulderCon);
+                player.Connctions.Add(NeckConA);
+                player.Connctions.Add(NeckConB);
+                player.Connctions.Add(HeadMidCon);
+                player.Connctions.Add(HeadUpperSideConA);
+                player.Connctions.Add(HeadUpperSideConB);
+                player.Connctions.Add(HeadLowerSideConA);
+                player.Connctions.Add(HeadLowerSideConB);
+                player.Connctions.Add(ArmUpperConA);
+                player.Connctions.Add(ArmUpperConB);
+                player.Connctions.Add(ArmLowerConA);
+                player.Connctions.Add(ArmLowerConB);
             }
         }
     }

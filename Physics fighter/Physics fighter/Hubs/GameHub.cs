@@ -184,7 +184,7 @@ namespace Physics_fighter.Hubs
                         float Color = Game.World.ConnectionList[j].Damadge/100;
                         Color *= 255;
                         int Colour = (int)Color;
-                        to.setObjectFrame(j, Game.World.Frame, PosA.X, PosA.Y, PosB.X, PosB.Y, "#FF" + Colour.ToString("X") + Colour.ToString("X"));
+                        to.setObjectFrame(j, Game.World.Frame, PosA.X, PosA.Y, PosB.X, PosB.Y, "#" + Colour.ToString("X") + "0000");
                     }
                 }
             }

@@ -12,7 +12,7 @@ namespace Physics_fighter.Src
         public int PointB;
         public int Id = -1;
         //precalculated
-        public float DistanceHeld = 100;
+        public float DistanceHeld = 10;
         public float Force = 1F;
         public float ForceStep = 0F;
         public float MaxForce = 1;

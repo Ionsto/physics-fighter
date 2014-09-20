@@ -92,6 +92,10 @@ namespace Physics_fighter.Src
                 SolveConstraints();
             }
             ++Frame;
+            for(int i = 0;i< PlayerList.Count;++i)
+            {
+                PlayerList[i].GetScore(this);
+            }
         }
         public void UpdatePointMasses()
         {
@@ -145,17 +149,6 @@ namespace Physics_fighter.Src
                                 VelocityColl(Points[1], ConnectionList[j]);
                                 VelocityColl(Points[2], ConnectionList[i]);
                                 VelocityColl(Points[3], ConnectionList[i]);
-                                /*if (ConnectedAtoB(Points[0], PointMassList[2]) && ConnectedAtoB(Points[2], PointMassList[0]))
-                                {
-                                    if (ConnectedAtoB(Points[1], PointMassList[3]) && ConnectedAtoB(Points[3], PointMassList[1]))
-                                    {
-                                        Coll(Points[0], Points[2]);
-                                        Coll(Points[0], Points[3]);
-                                        Coll(Points[1], Points[2]);
-                                        Coll(Points[1], Points[3]);
-
-                                    }
-                                }*/
                             }
                         }
                     }
@@ -200,6 +193,7 @@ namespace Physics_fighter.Src
                 A.Pos = A.OldPos.Add(newVelocity.Mult(COR));
                 PointMassList[B.PointA].Pos = PointMassList[B.PointA].OldPos.Add(Velocity.Mult(1 - Distribution));
                 PointMassList[B.PointB].Pos = PointMassList[B.PointB].OldPos.Add(Velocity.Mult(Distribution));
+                B.Damadge -= (A.Mass * A.DamadgeMulti);
                 if(A.State == 6 && !A.Grabbed)
                 {
                     int conA = Game.World.AddConnection(new ConnectionStaticDistance(Game.World, A.Id, B.PointA));
