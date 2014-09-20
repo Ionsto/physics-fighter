@@ -29,9 +29,9 @@ namespace Physics_fighter.Hubs
                     {
                         Game.World.PointMassList[Mid[i]].State = State[i];
                         Player player = Game.World.PlayerList[Game.World.PlayerNameList.IndexOf(Name)];
-                        for (int j = 0; j < player.JointActuators.Count;++j)
+                        for (int j = 0; j < player.JointActuators.Count; ++j)
                         {
-                            if(player.JointActuators[j][1] == Mid[i])
+                            if (player.JointActuators[j][1] == Mid[i])
                             {
                                 if (player.JointActuators[j][0] != -1)
                                 {
@@ -42,55 +42,74 @@ namespace Physics_fighter.Hubs
                                 }
                             }
                         }
-                        if (State[i] == 1)
+                        bool ConnectedA = false;
+                        bool ConnectedB = false;
+                        foreach (int k in Game.World.PointMassList[Mid[i]].Connected)
                         {
-                            player.JointActuators.Add(new int[]{Game.World.AddConnection(new ConnectionStaticDistance(Game.World, A[i], B[i])),Mid[i]});
-                        }
-                        if (State[i] == 2)
-                        {
-                            float Distance = 1;
-                            foreach(int k in Game.World.PointMassList[Mid[i]].Connected)
+                            if (k != -1)
                             {
-                                if (k != -1)
+                                if (Game.World.ConnectionList[k].PointA == A[i] || Game.World.ConnectionList[k].PointB == A[i])
                                 {
-                                    if (Game.World.ConnectionList[k].PointA == A[i] || Game.World.ConnectionList[k].PointB == A[i])
-                                    {
-                                        Distance += Game.World.ConnectionList[k].UsedDistance;
-                                    }
-                                    if (Game.World.ConnectionList[k].PointA == B[i] || Game.World.ConnectionList[k].PointB == B[i])
-                                    {
-                                        Distance += Game.World.ConnectionList[k].UsedDistance;
-                                    }
+                                    ConnectedA = true;
+                                }
+                                if (Game.World.ConnectionList[k].PointA == B[i] || Game.World.ConnectionList[k].PointB == B[i])
+                                {
+                                    ConnectedB = true;
                                 }
                             }
-                            player.JointActuators.Add(new int[]{Game.World.AddConnection(new ConnectionStaticDistance(Game.World, A[i], B[i],Distance)),Mid[i]});
                         }
-                        if (State[i] == 3)
+                        if (ConnectedA && ConnectedB)
                         {
-                            player.JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionRotateToDirection(Game.World, A[i], Mid[i], B[i], false)), Mid[i] });
-                        }
-                        if (State[i] == 4)
-                        {
-                            player.JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionRotateToDirection(Game.World, A[i], Mid[i], B[i], true)), Mid[i] });
-                        }
-                        if(State[i] == 5)
-                        {
-                            Game.World.PointMassList[Mid[i]].Grabbed = false;
-                        }
-                        if (State[i] == 6)
-                        {
-
-                        }
-                        if(State[i] != 0 && State[i] != 5 && State[i] != 6)
-                        {
-                            if (player.JointActuators.Last()[0] != -1)
+                            if (State[i] == 1)
                             {
-                                Game.World.ConnectionList[player.JointActuators.Last()[0]].Render = false;
-                                //Game.World.ConnectionList[player.JointActuators.Last()[0]].MaxForce = Game.World.PointMassList[Mid[i]].ForceApplied;
-                                //Game.World.ConnectionList[player.JointActuators.Last()[0]].Force = 1F;// Game.World.DeltaTime;//
-                                Game.World.ConnectionList[player.JointActuators.Last()[0]].Stiffness = 0.01F;//
+                                player.JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionStaticDistance(Game.World, A[i], B[i])), Mid[i] });
+                            }
+                            if (State[i] == 2)
+                            {
+                                float Distance = 1;
+                                foreach (int k in Game.World.PointMassList[Mid[i]].Connected)
+                                {
+                                    if (k != -1)
+                                    {
+                                        if (Game.World.ConnectionList[k].PointA == A[i] || Game.World.ConnectionList[k].PointB == A[i])
+                                        {
+                                            Distance += Game.World.ConnectionList[k].UsedDistance;
+                                        }
+                                        if (Game.World.ConnectionList[k].PointA == B[i] || Game.World.ConnectionList[k].PointB == B[i])
+                                        {
+                                            Distance += Game.World.ConnectionList[k].UsedDistance;
+                                        }
+                                    }
+                                }
+                                player.JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionStaticDistance(Game.World, A[i], B[i], Distance)), Mid[i] });
+                            }
+                            if (State[i] == 3)
+                            {
+                                player.JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionRotateToDirection(Game.World, A[i], Mid[i], B[i], false)), Mid[i] });
+                            }
+                            if (State[i] == 4)
+                            {
+                                player.JointActuators.Add(new int[] { Game.World.AddConnection(new ConnectionRotateToDirection(Game.World, A[i], Mid[i], B[i], true)), Mid[i] });
+                            }
+                            if (State[i] == 5)
+                            {
+                                Game.World.PointMassList[Mid[i]].Grabbed = false;
+                            }
+                            if (State[i] == 6)
+                            {
 
-                                //Game.World.ConnectionList[player.JointActuators.Last()[0]].ForceStep = 1F;
+                            }
+                            if (State[i] != 0 && State[i] != 5 && State[i] != 6)
+                            {
+                                if (player.JointActuators.Last()[0] != -1)
+                                {
+                                    Game.World.ConnectionList[player.JointActuators.Last()[0]].Render = false;
+                                    //Game.World.ConnectionList[player.JointActuators.Last()[0]].MaxForce = Game.World.PointMassList[Mid[i]].ForceApplied;
+                                    //Game.World.ConnectionList[player.JointActuators.Last()[0]].Force = 1F;// Game.World.DeltaTime;//
+                                    Game.World.ConnectionList[player.JointActuators.Last()[0]].Stiffness = 0.01F;//
+
+                                    //Game.World.ConnectionList[player.JointActuators.Last()[0]].ForceStep = 1F;
+                                }
                             }
                         }
                     }
@@ -181,13 +200,27 @@ namespace Physics_fighter.Hubs
                     {
                         Vector_2d PosA = Game.World.PointMassList[Game.World.ConnectionList[j].PointA].Pos;
                         Vector_2d PosB = Game.World.PointMassList[Game.World.ConnectionList[j].PointB].Pos;
-                        float Color = Game.World.ConnectionList[j].Damadge/100;
+                        float Color = 1;
+                        if (Game.World.ConnectionList[j].Damadge != 0)
+                        {
+                            Color = 1 - (100.0F / Game.World.ConnectionList[j].Damadge);
+                        }
                         Color *= 255;
                         int Colour = (int)Color;
-                        to.setObjectFrame(j, Game.World.Frame, PosA.X, PosA.Y, PosB.X, PosB.Y, "#" + Colour.ToString("X") + "0000");
+                        string ColourString = "#" + NumberToHexString(Colour) + "0000";
+                        to.setObjectFrame(j, Game.World.Frame, PosA.X, PosA.Y, PosB.X, PosB.Y, ColourString);
                     }
                 }
             }
+        }
+        string NumberToHexString(int Colour)
+        {
+            string ColourString = Colour.ToString("X");
+            if(Colour < 16)
+            {
+                ColourString = "0" + ColourString;
+            }
+            return ColourString;
         }
     }
 }

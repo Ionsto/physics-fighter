@@ -1,0 +1,37 @@
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Physics fighter.dll.config
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Physics fighter.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Physics fighter.pdb
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Antlr3.Runtime.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.Owin.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.Owin.Security.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Newtonsoft.Json.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Owin.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\System.Web.Helpers.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\System.Web.Mvc.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\System.Web.Optimization.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\System.Web.Razor.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\System.Web.WebPages.Deployment.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\System.Web.WebPages.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\System.Web.WebPages.Razor.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\WebGrease.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Antlr3.Runtime.pdb
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.Owin.xml
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Microsoft.Owin.Security.xml
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\Newtonsoft.Json.xml
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\System.Web.Helpers.xml
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\System.Web.Mvc.xml
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\System.Web.Optimization.xml
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\System.Web.Razor.xml
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\System.Web.WebPages.xml
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\System.Web.WebPages.Deployment.xml
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\bin\System.Web.WebPages.Razor.xml
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\obj\Release\Physics fighter.csprojResolveAssemblyReference.cache
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\obj\Release\Physics fighter.dll
+C:\Users\mpfs\Documents\GitHub\physics-fighter\Physics fighter\Physics fighter\obj\Release\Physics fighter.pdb

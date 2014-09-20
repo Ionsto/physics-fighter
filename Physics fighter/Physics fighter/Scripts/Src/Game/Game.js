@@ -38,10 +38,10 @@
     };
     function RenderEntity(connection)
     {
-        ctx.fillStyle = connection.Colour;
         ctx.beginPath();
         ctx.moveTo(connection.XA, connection.YA);
         ctx.lineTo(connection.XB, connection.YB);
+        ctx.strokeStyle = connection.Colour;
         ctx.stroke();
     }
     var game = $.connection.gameHub;

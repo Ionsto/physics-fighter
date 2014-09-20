@@ -30,6 +30,28 @@ namespace Physics_fighter.Src
             if(Damadge <= 0)
             {
                 Destroy(world);
+                BreakTies(PointA, world);
+                BreakTies(PointB, world);
+            }
+        }
+        public void BreakTies(int point,World world)
+        {
+            if (world.PointMassList[point].Player != -1)
+            {
+                Player player = Game.World.PlayerList[world.PointMassList[point].Player];
+                for (int j = 0; j < player.JointActuators.Count; ++j)
+                {
+                    if (player.JointActuators[j][1] == point)
+                    {
+                        if (player.JointActuators[j][0] != -1)
+                        {
+                            if (Game.World.ConnectionList[player.JointActuators[j][0]] != null)
+                            {
+                                Game.World.ConnectionList[player.JointActuators[j][0]].Destroy(Game.World);
+                            }
+                        }
+                    }
+                }
             }
         }
         public void Destroy(World world)
